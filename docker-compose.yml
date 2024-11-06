@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: ./client  # Specify the React app folder
+      dockerfile: Dockerfile.client
+    ports:
+      - "5100:5100"  # Map host port 3000 to container port 3000 for React
+    volumes:
+      - ./client:/app  # Mount local files into the container for live reloading
+      - /app/node_modules  # Exclude node_modules to avoid conflicts
+    environment:
+      - NODE_ENV=development  # Development environment
+
+  backend:
+    build:
+      context: ./server  # Specify the Express server folder
+      dockerfile: Dockerfile.server
+    ports:
+      - '5200:5200'  # Map host port 5000 to container port 5000 for Express API
+    volumes:
+      - ./server:/app  # Mount server files for live reloading
+      - /app/node_modules  # Exclude node_modules for compatibility
+    environment:
+      - NODE_ENV=development  # Set the environment variable
