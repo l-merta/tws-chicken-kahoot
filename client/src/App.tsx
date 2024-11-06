@@ -1,53 +1,24 @@
-import React, { useEffect, useState } from "react";
-import socket from "./components/socket";
+// src/App.tsx
+import React from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import Join from "./pages/Join";
+import Room from "./pages/Room";
+import Create from "./pages/Create";
 
-interface Message {
-  sender: string;
-  message: string;
-}
+const App: React.FC = () => (
+  <Router>
+    <Routes>
+      <Route path="/" element={
+        <div>
+          <h1>Welcome to the Quiz Game</h1>
+          <Link to="/join">Join a Room</Link> | <Link to="/create">Create a Room</Link>
+        </div>
+      } />
+      <Route path="/join" element={<Join />} />
+      <Route path="/create" element={<Create />} />
+      <Route path="/room/:roomId" element={<Room />} />
+    </Routes>
+  </Router>
+);
 
-const App: React.FC<{ roomId: string }> = ({ roomId }) => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState("");
-
-  useEffect(() => {
-    // Join the room on mount
-    socket.emit("joinRoom", roomId);
-
-    // Listen for incoming messages
-    socket.on("receiveMessage", (data: Message) => {
-      setMessages((prev) => [...prev, data]);
-    });
-
-    // Clean up on unmount
-    return () => {
-      socket.off("receiveMessage");
-    };
-  }, [roomId]);
-
-  const sendMessage = () => {
-    socket.emit("sendMessage", { roomId, message: input });
-    setInput("");
-  };
-
-  return (
-    <div>
-      <h2>Room: {roomId}</h2>
-      <div>
-        {messages.map((msg, index) => (
-          <p key={index}>
-            {msg.sender}: {msg.message}
-          </p>
-        ))}
-      </div>
-      <input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Type a message"
-      />
-      <button onClick={sendMessage}>Send</button>
-    </div>
-  );
-};
-
-export default App
+export default App;
