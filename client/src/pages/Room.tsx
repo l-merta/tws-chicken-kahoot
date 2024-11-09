@@ -39,6 +39,7 @@ const Room: React.FC = () => {
       });
 
       socket.on("gameState", (state: { gameStarted: boolean }) => {
+        console.log(state);
         setGameStarted(state.gameStarted);
       });
 

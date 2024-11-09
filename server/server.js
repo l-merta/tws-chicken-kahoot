@@ -41,8 +41,13 @@ io.on("connection", (socket) => {
 
   // Handle joining a room
   socket.on("joinRoom", (roomId) => {
-    if (!rooms.has(roomId)) {
+    const room = rooms.get(roomId);
+    if (!room) {
       socket.emit("error", "Room does not exist."); // Send error to the client
+      return;
+    }
+    if (room.gameStarted) {
+      socket.emit("error", "Game has already started."); // Send error if the game is in progress
       return;
     }
 
@@ -60,6 +65,19 @@ io.on("connection", (socket) => {
     socket.emit("roleAssigned", role);
 
     console.log(`User ${socket.id} joined room ${roomId} as ${role}`);
+  });
+
+  // Handle starting the game
+  socket.on("startGame", (roomId) => {
+    const room = rooms.get(roomId);
+    if (room) {
+      const user = room.find((u) => u.id === socket.id);
+      if (user && user.role === "host") {
+        room.gameStarted = true; // Set gameStarted to true in the room object
+        io.to(roomId).emit("gameState", { gameStarted: true }); // Notify users that the game has started
+        console.log(`Game started in room ${roomId}`);
+      }
+    }
   });
 
   // Handle sending a message in the room
