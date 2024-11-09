@@ -40,7 +40,7 @@
 }
 .main-room h2 .code-cont .text {
   opacity: 0.9;
-  font: 400 1rem var(--f1);
+  font: 500 1rem var(--f1);
 }
 .main-room h2 .code-cont .code {
   font: 600 3rem var(--f1);
@@ -68,6 +68,10 @@
   width: -moz-fit-content;
   width: fit-content;
   padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
   position: absolute;
   top: 1vw;
   left: 1vw;
@@ -78,24 +82,33 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: start;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 .main-room .list-users .users-cont .user {
-  width: 6rem;
+  height: 4rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
 }
-.main-room .list-users .users-cont .user img {
-  width: 80%;
+.main-room .list-users .users-cont .user .img-cont {
+  background-color: var(--c5);
+  aspect-ratio: 1/1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-room .list-users .users-cont .user .img-cont img {
+  height: 80%;
   border-radius: 50%;
 }
 .main-room .list-users .users-cont .user .name {
-  opacity: 0.9;
+  background-color: rgba(var(--c5-v), 0.5);
   font: 600 1rem var(--f1);
-  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
 }
 
 .main-game {

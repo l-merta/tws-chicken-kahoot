@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import QRCode from 'react-qr-code';
 import socket from "./../components/socket";
 
 import './../styles/room.css';
@@ -23,6 +24,7 @@ const Room: React.FC = () => {
   const [hostLeftMessage, setHostLeftMessage] = useState("");
   const [error, setError] = useState<ErrorProps>();
   const [gameStarted, setGameStarted] = useState(false);
+  const [qrCodeUrl, setQrCodeUrl] = useState('');
 
   useEffect(() => {
     if (roomId) {
@@ -101,26 +103,23 @@ const Room: React.FC = () => {
           <span className="code-cont">
             <span className="text">herní PIN:</span>
             <span className="code">{roomId}</span>
+            {/* <QRCode value={"url"} size={300} /> */}
           </span>
         </h2>
-        {hostLeftMessage && <p>{hostLeftMessage}</p>}
         <div className="list-users">
-          <div className="users-count">{users.length}</div>
+          <div className="users-count"><i className="fa-solid fa-user"></i> {users.length}</div>
           <div className="users-cont">
             {users.map((user) => (
               <div className="user" key={user.id}>
-                <img src="/images/user/profile.png" alt="" />
+                <div className="img-cont">
+                  <img src="/images/user/profile.png" alt="" />
+                </div>
                 <span className="name">{user.name}</span>
               </div>
             ))}
           </div>
         </div>
-        {isHost && (
-          <>
-            <p>You are the host!</p>
-            {!gameStarted && <button onClick={startGame}>Start Game</button>}
-          </>
-        )}
+        {isHost && (!gameStarted && <button onClick={startGame}>Start Game</button>)}
         <div>
           <h3>Game Status: {gameStarted ? "Game in Progress" : "Waiting to Start"}</h3>
         </div>
