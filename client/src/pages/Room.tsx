@@ -16,13 +16,14 @@ const Room: React.FC = () => {
   const [newName, setNewName] = useState("");
   const [hostLeftMessage, setHostLeftMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     if (roomId) {
       socket.emit("joinRoom", roomId);
 
       socket.on("error", (message: string) => {
-        setErrorMessage(message); // Handle the error
+        setErrorMessage(message);
       });
 
       socket.on("roomUsers", (updatedUsers: User[]) => {
@@ -37,12 +38,17 @@ const Room: React.FC = () => {
         setHostLeftMessage(message);
       });
 
+      socket.on("gameState", (state: { gameStarted: boolean }) => {
+        setGameStarted(state.gameStarted);
+      });
+
       return () => {
         socket.emit("leaveRoom", roomId);
         socket.off("roomUsers");
         socket.off("roleAssigned");
         socket.off("hostLeft");
-        socket.off("error"); // Clean up the error listener
+        socket.off("error");
+        socket.off("gameState");
       };
     }
   }, [roomId]);
@@ -58,7 +64,12 @@ const Room: React.FC = () => {
     }
   };
 
-  // If the error occurs, we prevent rendering the room content
+  const startGame = () => {
+    if (isHost) {
+      socket.emit("startGame", roomId);
+    }
+  };
+
   if (errorMessage) {
     return (
       <div>
@@ -84,7 +95,15 @@ const Room: React.FC = () => {
           ))}
         </ul>
       </div>
-      {isHost && <p>You are the host!</p>}
+      {isHost && (
+        <>
+          <p>You are the host!</p>
+          {!gameStarted && <button onClick={startGame}>Start Game</button>}
+        </>
+      )}
+      <div>
+        <h3>Game Status: {gameStarted ? "Game in Progress" : "Waiting to Start"}</h3>
+      </div>
       <div>
         <h3>Change your name</h3>
         <input
