@@ -1,12 +1,13 @@
 .main-room {
   color: var(--c2);
   background-color: var(--c5);
-  padding: 0.7vw;
+  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  overflow-x: hidden;
 }
 .main-room button {
   color: var(--c2);
@@ -18,6 +19,7 @@
   cursor: pointer;
 }
 .main-room h2 {
+  height: 8rem;
   margin: 0;
   position: relative;
   display: flex;
@@ -26,20 +28,74 @@
   align-items: center;
   gap: 0.5rem;
 }
-.main-room h2 span {
-  opacity: 0.9;
-  font: 400 1rem var(--f1);
+.main-room h2 .code-cont {
+  color: var(--c1);
+  background-color: var(--c2);
+  border-radius: 0.3rem;
+  padding: 0.6rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  gap: 0.1rem;
 }
-.main-room h2 span .code {
-  font: 600 2.5rem var(--f1);
+.main-room h2 .code-cont .text {
+  opacity: 0.9;
+  font: 400 1rem var(--f1);
+}
+.main-room h2 .code-cont .code {
+  font: 600 3rem var(--f1);
 }
 .main-room h2 button {
   position: absolute;
-  left: 0;
+  top: 1vw;
+  left: 1vw;
+}
+.main-room .list-users {
+  background-color: var(--c6);
+  width: 100%;
+  height: calc(100vh - 8rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.main-room .list-users .users-count {
+  opacity: 0.8;
+  color: var(--c2);
+  background-color: var(--c5);
+  font: 600 1.1rem var(--f1);
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.5rem;
+  position: absolute;
+  top: 1vw;
+  left: 1vw;
+}
+.main-room .list-users .users-cont {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: start;
+  gap: 0.5rem;
+}
+.main-room .list-users .users-cont .user {
+  width: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.main-room .list-users .users-cont .user img {
+  width: 80%;
+  border-radius: 50%;
+}
+.main-room .list-users .users-cont .user .name {
+  opacity: 0.9;
+  font: 600 1rem var(--f1);
+  text-align: center;
 }
 
 .main-game {

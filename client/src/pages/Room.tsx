@@ -98,20 +98,22 @@ const Room: React.FC = () => {
       <div className="main-room">
         <h2>
           <button onClick={handleLeave}>Opustit hru</button>
-          <span>
-            Kód místnosti: <span className="code">{roomId}</span>
+          <span className="code-cont">
+            <span className="text">herní PIN:</span>
+            <span className="code">{roomId}</span>
           </span>
         </h2>
         {hostLeftMessage && <p>{hostLeftMessage}</p>}
-        <div>
-          <h3>Users in Room</h3>
-          <ul>
+        <div className="list-users">
+          <div className="users-count">{users.length}</div>
+          <div className="users-cont">
             {users.map((user) => (
-              <li key={user.id}>
-                {user.name} - {user.role}
-              </li>
+              <div className="user" key={user.id}>
+                <img src="/images/user/profile.png" alt="" />
+                <span className="name">{user.name}</span>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
         {isHost && (
           <>
