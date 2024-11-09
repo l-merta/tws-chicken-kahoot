@@ -1,0 +1,65 @@
+main {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+
+    .s1 {
+        width: 65%;
+        height: 100%;
+        padding: 0 6vw;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        h1 {
+            font: 600 3rem var(--f1);
+            letter-spacing: 0.5rem;
+            margin: 0;
+        }
+        h2 {
+            opacity: 0.7;
+            font: 500 1.7rem var(--f1);
+            margin: 0.8rem 0;
+        }
+        .links {
+            margin-top: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            gap: 1.0rem;
+            
+            .links-2 {
+                display: flex;
+                gap: 0.5rem;
+            }
+            a {
+                color: var(--c1);
+                font-weight: 500;
+                text-decoration: none;text-transform: uppercase;
+            }
+            .link-kahoot {
+                color: var(--c2);
+                background-color: var(--c3);
+                border-radius: 0.2rem;
+                padding: 0.6rem 0.8rem;
+            }
+            .link-basic {
+                color: var(--c4);
+                font-weight: 400;
+            }
+            .link-basic:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .s2 {
+        width: 100%;
+        height: 100%;
+
+        img {
+            width: calc(100% - 1vw);
+            object-fit: cover;
+        }
+    }
+}

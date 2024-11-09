@@ -43,28 +43,36 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", (roomId) => {
     const room = rooms.get(roomId);
     if (!room) {
-      socket.emit("error", "Room does not exist."); // Send error to the client
+      socket.emit("error", { code: 101, message: "Místnost s tímto kódem neexistuje" }); // Send error to the client
       return;
     }
     if (room.gameStarted) {
-      socket.emit("error", "Game has already started."); // Send error if the game is in progress
+      socket.emit("error", { code: 102, message: "Hra již začala" }); // Send error if the game is in progress
       return;
     }
-
+  
+    // Generate a unique 4-digit username
+    let newUserNumber = 1;
+    let newUserName = `player${newUserNumber.toString().padStart(2, '0')}`;
+  
+    while (room.some(user => user.name === newUserName)) {
+      newUserNumber++;
+      newUserName = `player${newUserNumber.toString().padStart(2, '0')}`;
+    }
+  
     // Assign role based on the number of users in the room
-    const users = rooms.get(roomId);
-    const role = users.length === 0 ? "host" : "guest";
-
+    const role = room.length === 0 ? "host" : "guest";
+  
     // Add the new user to the room
-    const user = { id: socket.id, name: `User ${socket.id}`, role };
-    users.push(user);
+    const user = { id: socket.id, name: newUserName, role };
+    room.push(user);
     socket.join(roomId);
-
+  
     // Emit updated user list and role assignment
-    io.to(roomId).emit("roomUsers", users);
+    io.to(roomId).emit("roomUsers", room);
     socket.emit("roleAssigned", role);
-
-    console.log(`User ${socket.id} joined room ${roomId} as ${role}`);
+  
+    console.log(`User ${socket.id} joined room ${roomId} as ${role} with name ${newUserName}`);
   });
 
   // Handle starting the game
@@ -115,6 +123,8 @@ io.on("connection", (socket) => {
       // If the host leaves, send a message to all users only if there are others left
       if (users.length > 1) {
         io.to(roomId).emit("hostLeft", "The host has left the room.");
+        if(!users.gameStarted)
+          io.to(roomId).emit("error", { code: 103, message: "Zakladatel místnosti odešel" });
       }
     }
 

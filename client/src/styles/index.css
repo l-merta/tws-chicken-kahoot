@@ -1,4 +1,17 @@
+:root {
+    --c1: black;
+    --c2: whitesmoke;
+    --c3: rgb(0, 127, 211);
+    --c4: rgb(95, 95, 95);
+    --c5: rgb(29, 22, 44);
+    --f1: "Ubuntu";
+    --f2: "Ubuntu Mono";
+}
 body {
+    color: var(--c1);
+    background-color: var(--c2);
+    font-family: var(--f1);
+    letter-spacing: 0.1rem;
     margin: 0;
 }
 body * {
