@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import QRCode from 'react-qr-code';
+//import QRCode from 'react-qr-code';
 import socket from "./../components/socket";
 
 import './../styles/room.css';
