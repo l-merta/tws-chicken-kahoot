@@ -67,6 +67,7 @@
   font: 600 1.1rem var(--f1);
   width: -moz-fit-content;
   width: fit-content;
+  border-radius: 0.3rem;
   padding: 0.5rem;
   display: flex;
   justify-content: center;
@@ -86,9 +87,11 @@
 }
 .main-room .list-users .users-cont .user {
   height: 4rem;
+  border-radius: 0.3rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 .main-room .list-users .users-cont .user .img-cont {
   background-color: var(--c5);
