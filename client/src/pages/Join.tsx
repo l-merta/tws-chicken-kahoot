@@ -14,7 +14,10 @@ const Join: React.FC = () => {
 
   return (
     <div className="main-room">
-      <h2>Připojte se do místnosti</h2>
+      <h2>
+        <button onClick={() => navigate("/")}>Zpět</button>
+        <span>Připojit se do hry</span>
+      </h2>
       <div className="input-text">
         <input
           type="text"
