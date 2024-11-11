@@ -22,7 +22,13 @@ const Create: React.FC = () => {
     createRoom();
   }, [navigate]);
 
-  return <div>Creating Room...</div>;
+  return (
+    <div className="main-room main-error">
+      <div className="error">
+        <h3>Vytváří se místnost..</h3>
+      </div>
+    </div>
+  );
 };
 
 export default Create;

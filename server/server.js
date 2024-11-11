@@ -135,6 +135,11 @@ io.on("connection", (socket) => {
     socket.leave(roomId);
     io.to(roomId).emit("roomUsers", users);
     console.log(`User ${socket.id} left room ${roomId}`);
+    
+    if (users.length == 0) {
+      //console.log("Deleting room " + roomId);
+      //rooms.delete(roomId);
+    }
   });
 
   // Handle disconnection
@@ -148,6 +153,7 @@ io.on("connection", (socket) => {
 
       // If the room is now empty, remove it from the list
       if (updatedUsers.length === 0) {
+        console.log("Deleting room " + roomId);
         rooms.delete(roomId);
       } else {
         io.to(roomId).emit("roomUsers", updatedUsers);
