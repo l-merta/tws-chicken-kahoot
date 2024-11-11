@@ -124,6 +124,12 @@
   flex-direction: column;
   gap: 0.8rem;
 }
+.main-room .input-text .nadpis {
+  color: var(--c1);
+  font: 500 1rem var(--f1);
+  margin: 0.5rem 0;
+  text-align: center;
+}
 .main-room .input-text input {
   color: var(--c1);
   background-color: var(--c2);
@@ -132,6 +138,9 @@
   border-radius: 0.25rem;
   padding: 0.8rem 0;
   text-align: center;
+}
+.main-room .input-text input:focus {
+  outline: none;
 }
 .main-room .input-text button {
   color: var(--c2);
@@ -143,6 +152,15 @@
 }
 .main-room .input-text button:hover {
   opacity: 0.9;
+}
+.main-room .button-start-game {
+  background-color: var(--c5);
+  font: 600 1rem var(--f1);
+  border: none;
+  padding: 0.8rem 2.5rem;
+  position: absolute;
+  top: 1vw;
+  right: 1vw;
 }
 
 .main-game {

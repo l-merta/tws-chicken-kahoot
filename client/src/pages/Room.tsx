@@ -21,6 +21,7 @@ const Room: React.FC = () => {
   const [users, setUsers] = useState<UserProps[]>([]);
   const [isHost, setIsHost] = useState(false);
   const [newName, setNewName] = useState("");
+  const [newNameSet, setNewNameSet] = useState(false);
   //const [hostLeftMessage, setHostLeftMessage] = useState("");
   const [error, setError] = useState<ErrorProps>();
   const [gameStarted, setGameStarted] = useState(false);
@@ -70,6 +71,7 @@ const Room: React.FC = () => {
   const handleNameChange = () => {
     if (newName) {
       socket.emit("changeName", { roomId, newName });
+      setNewNameSet(true);
       setNewName("");
     }
   };
@@ -109,6 +111,7 @@ const Room: React.FC = () => {
         </h2>
         <div className="list-users">
           <div className="users-count"><i className="fa-solid fa-user"></i> {users.length}</div>
+          {isHost && (!gameStarted && <button className="button-start-game" onClick={startGame}>Spustit hru</button>)}
           <div className="users-cont">
             {users.map((user) => (
               <div className="user" key={user.id}>
@@ -120,19 +123,20 @@ const Room: React.FC = () => {
             ))}
           </div>
         </div>
-        {isHost && (!gameStarted && <button onClick={startGame}>Start Game</button>)}
+        {/* {isHost && (!gameStarted && <button onClick={startGame}>Start Game</button>)}
         <div>
           <h3>Game Status: {gameStarted ? "Game in Progress" : "Waiting to Start"}</h3>
-        </div>
-        <div>
-          <h3>Change your name</h3>
-          <input
-            type="text"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-            placeholder="Enter new name"
-          />
-          <button onClick={handleNameChange}>Change Name</button>
+        </div> */}
+        <div className={"popup-cont " + (newNameSet && "disabled")}>
+          <div className="input-text">
+            <input
+              type="text"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              placeholder="Uživatelské jméno"
+            />
+            <button onClick={handleNameChange}>Nastavit jméno</button>
+          </div>
         </div>
       </div>
     );
@@ -141,7 +145,7 @@ const Room: React.FC = () => {
     return (
       <div className="main-room main-game">
         <button onClick={handleLeave}>Opustit hru</button>
-        <h1>Hello Negga</h1>
+        <h1>Hello ve hře</h1>
       </div>
     )
   }

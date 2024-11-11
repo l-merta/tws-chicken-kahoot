@@ -19,3 +19,6 @@ body {
 body * {
     box-sizing: border-box;
 }
+.disabled {
+    display: none !important;
+}
