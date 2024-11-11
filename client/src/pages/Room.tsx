@@ -21,10 +21,10 @@ const Room: React.FC = () => {
   const [users, setUsers] = useState<UserProps[]>([]);
   const [isHost, setIsHost] = useState(false);
   const [newName, setNewName] = useState("");
-  const [hostLeftMessage, setHostLeftMessage] = useState("");
+  //const [hostLeftMessage, setHostLeftMessage] = useState("");
   const [error, setError] = useState<ErrorProps>();
   const [gameStarted, setGameStarted] = useState(false);
-  const [qrCodeUrl, setQrCodeUrl] = useState('');
+  //const [qrCodeUrl, setQrCodeUrl] = useState('');
 
   useEffect(() => {
     if (roomId) {
@@ -42,9 +42,10 @@ const Room: React.FC = () => {
         setIsHost(role === "host");
       });
 
+      /*
       socket.on("hostLeft", (message: string) => {
         setHostLeftMessage(message);
-      });
+      }); */
 
       socket.on("gameState", (state: { gameStarted: boolean }) => {
         console.log(state);
