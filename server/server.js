@@ -1,10 +1,15 @@
 const express = require("express");
 const cors = require("cors");
+const fs = require('fs');
+const path = require('path');
 const http = require("http");
 const { Server } = require("socket.io");
 
 const app = express();
 const PORT = process.env.PORT || 5200;
+
+// Load questions from the JSON file
+const questions = JSON.parse(fs.readFileSync(path.join(__dirname, 'json/questions/chicken.json'), 'utf-8'));
 
 app.use(cors());
 app.use(express.static("public"));
@@ -81,9 +86,70 @@ io.on("connection", (socket) => {
     if (room) {
       const user = room.find((u) => u.id === socket.id);
       if (user && user.role === "host") {
-        room.gameStarted = true; // Set gameStarted to true in the room object
-        io.to(roomId).emit("gameState", { gameStarted: true }); // Notify users that the game has started
+        room.gameStarted = true;
+        room.currentQuestionIndex = 0;
+        room.totalQuestions = 3; // Set number of questions for the game
+        room.timeForQuestion = 2; // Set time for each question
+  
+        // Shuffle questions randomly before starting the game
+        const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+  
+        io.to(roomId).emit("gameState", { gameStarted: true });
         console.log(`Game started in room ${roomId}`);
+  
+        // Helper function to send the next question
+        const sendQuestion = () => {
+          if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < shuffledQuestions.length) {
+            const question = shuffledQuestions[room.currentQuestionIndex];
+  
+            // Shuffle the answers for each question
+            const answers = question.answers.slice();
+            const correctAnswer = answers[question.correct];
+            const scrambledAnswers = answers.sort(() => Math.random() - 0.5);
+            const newCorrectIndex = scrambledAnswers.indexOf(correctAnswer);
+  
+            const questionToSend = {
+              question: question.question,
+              answers: scrambledAnswers,
+              time: room.timeForQuestion
+            };
+  
+            io.to(roomId).emit("question", questionToSend);
+            console.log(`Question ${room.currentQuestionIndex + 1} sent to room ${roomId}`);
+            console.log(`Correct answer is: "${correctAnswer}" at position ${newCorrectIndex + 1} in scrambled answers`);
+  
+            // Wait for the time specified, then emit the question result
+            setTimeout(() => {
+              io.to(roomId).emit("questionResult", {
+                message: "Time's up! Here is the correct answer.",
+                correctAnswer: correctAnswer,
+                correctIndex: newCorrectIndex + 1 // Send 1-based index for display
+              });
+              console.log(`Result for question ${room.currentQuestionIndex + 1} emitted to room ${roomId}`);
+              console.log(`The correct answer was "${correctAnswer}" at position ${newCorrectIndex + 1}`);
+  
+              room.currentQuestionIndex++;
+              if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < shuffledQuestions.length) {
+                // Send the next question after a short delay (e.g., 3 seconds)
+                setTimeout(sendQuestion, 3000);
+              } else {
+                // Delay before sending the gameEnd message
+                setTimeout(() => {
+                  io.to(roomId).emit("gameEnd", { message: "The game has ended! Thank you for playing." });
+                  console.log(`Game ended in room ${roomId}`);
+                }, 3000); // Add delay before game end
+              }
+            }, questionToSend.time * 1000);
+  
+          } else {
+            // Safety check if the game exceeds the available number of questions
+            io.to(roomId).emit("gameEnd", { message: "The game has ended! Thank you for playing." });
+            console.log(`Game ended in room ${roomId}`);
+          }
+        };
+  
+        // Start the game by sending the first question
+        sendQuestion();
       }
     }
   });

@@ -14,6 +14,11 @@ interface ErrorProps {
   code: number;
   message: string;
 }
+interface QuestionProps {
+  question: string;
+  answers: Array<String>;
+  time: number;
+}
 
 const Room: React.FC = () => {
   const { roomId } = useParams<{ roomId: string }>();
@@ -43,6 +48,16 @@ const Room: React.FC = () => {
         setIsHost(role === "host");
       });
 
+      socket.on("question", (question: QuestionProps) => {
+        console.log(question)
+      });
+      socket.on("questionResult", (message: string) => {
+        console.log(message)
+      });
+      socket.on("gameEnd", (message: string) => {
+        console.log(message)
+      });
+
       /*
       socket.on("hostLeft", (message: string) => {
         setHostLeftMessage(message);
@@ -57,7 +72,7 @@ const Room: React.FC = () => {
         socket.emit("leaveRoom", roomId);
         socket.off("roomUsers");
         socket.off("roleAssigned");
-        socket.off("hostLeft");
+        //socket.off("hostLeft");
         socket.off("error");
         socket.off("gameState");
       };

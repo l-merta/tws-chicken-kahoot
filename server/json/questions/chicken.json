@@ -1,0 +1,29 @@
+[
+    {
+        "question": "Jak prd?",
+        "answers": [
+            "ano prd",
+            "ne prd",
+            "hele možná prd"
+        ],
+        "correct": 1
+    },
+    {
+        "question": "Jak pšouk?",
+        "answers": [
+            "ano pšouk",
+            "ne pšouk"
+        ],
+        "correct": 0
+    },
+    {
+        "question": "Jak bobek?",
+        "answers": [
+            "ano bobek",
+            "ne bobek",
+            "hele možná bobek",
+            "vesmírný bobek"
+        ],
+        "correct": 3
+    }
+]
