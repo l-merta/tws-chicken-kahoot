@@ -119,6 +119,38 @@
             }
         }
     }
+    .input-text {
+        background-color: var(--c2);
+        width: 25rem;
+        max-width: 100%;
+        border-radius: 0.25rem;
+        margin: 0 auto;
+        padding: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+
+        input {
+            color: var(--c1);
+            background-color: var(--c2);
+            font: 600 1.1rem var(--f1);
+            border: 2px solid var(--c4);
+            border-radius: 0.25rem;
+            padding: 0.8rem 0;
+            text-align: center;
+        }
+        button {
+            color: var(--c2);
+            background-color: var(--c4);
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.8rem 0;
+            transition: all .12s;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+    }
 }
 .main-game {
     color: var(--c1);

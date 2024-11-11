@@ -13,15 +13,17 @@ const Join: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Join a Room</h2>
-      <input
-        type="text"
-        value={roomId}
-        onChange={(e) => setRoomId(e.target.value)}
-        placeholder="Enter Room ID"
-      />
-      <button onClick={handleJoin}>Join Room</button>
+    <div className="main-room">
+      <h2>Připojte se do místnosti</h2>
+      <div className="input-text">
+        <input
+          type="text"
+          value={roomId}
+          onChange={(e) => setRoomId(e.target.value)}
+          placeholder="Herní PIN"
+        />
+        <button onClick={handleJoin}>Připojit se</button>
+      </div>
     </div>
   );
 };
