@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-//import QRCode from 'react-qr-code';
+import { QRCodeSVG } from 'qrcode.react';
 import socket from "./../components/socket";
 
 import Question from './Question';
@@ -44,6 +44,7 @@ const Room: React.FC = () => {
   //const [qrCodeUrl, setQrCodeUrl] = useState('');
   const [question, setLoadedQuestion] = useState<QuestionProps | null>();
   const [questionResult, setLoadedQuestionResult] = useState<QuestionResultProps | null>();
+  const [qrCodeLarge, setQrCodeLarge] = useState(false);
 
   useEffect(() => {
     if (roomId) {
@@ -62,17 +63,17 @@ const Room: React.FC = () => {
       });
 
       socket.on("question", (question: QuestionProps) => {
-        console.log(question)
+        //console.log(question)
         setLoadedQuestion(question);
         setLoadedQuestionResult(null);
       });
       socket.on("questionResult", (result: QuestionResultProps) => {
-        console.log(result)
+        //console.log(result)
         setLoadedQuestion(null);
         setLoadedQuestionResult(result);
       });
       socket.on("gameEnd", (message: string) => {
-        console.log(message)
+        //console.log(message)
         setLoadedQuestion(null);
         setLoadedQuestionResult(null);
         setLoadedGameEnded(true);
@@ -84,7 +85,7 @@ const Room: React.FC = () => {
       }); */
 
       socket.on("gameState", (state: { gameStarted: boolean }) => {
-        console.log(state);
+        //console.log(state);
         setGameStarted(state.gameStarted);
       });
 
@@ -160,10 +161,14 @@ const Room: React.FC = () => {
       <div className="main-room">
         <h2>
           <button onClick={handleLeave}>Opustit hru</button>
-          <span className="code-cont">
-            <span className="text">herní PIN:</span>
-            <span className="code">{roomId}</span>
-            {/* <QRCode value={"url"} size={300} /> */}
+          <span className={"code-cont code-cont-qr " + (qrCodeLarge ? "code-cont-qr-large" : "")}>
+            <div className="s1">
+              <span className="text">herní PIN:</span>
+              <span className="code">{roomId}</span>
+            </div>
+            <div className="s2">
+              <QRCodeSVG className="qr-code" onClick={()=>{setQrCodeLarge(prev => !prev)}} value={window.location.href} />
+            </div>
           </span>
         </h2>
         <div className="list-users">
