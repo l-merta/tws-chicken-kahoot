@@ -3,6 +3,10 @@ import { useParams, useNavigate } from "react-router-dom";
 //import QRCode from 'react-qr-code';
 import socket from "./../components/socket";
 
+import Question from './Question';
+import QuestionResult from './QuestionResult';
+import GameResult from './GameResult';
+
 import './../styles/room.css';
 
 interface UserProps {
@@ -171,30 +175,9 @@ const Room: React.FC = () => {
     );
   }
   else {
-    if (question) {
-      return (
-        <div className="main-room main-game">
-          <button onClick={handleLeave}>Opustit hru</button>
-          <h1>{question.question}</h1>
-        </div>
-      )
-    }
-    else if (questionResult) {
-      return (
-        <div className="main-room main-game">
-          <button onClick={handleLeave}>{questionResult.correctAnswer}</button>
-          <h1>Hej tady výsledky otázky</h1>
-        </div>
-      )
-    }
-    else if (gameEnded) {
-      return (
-        <div className="main-room main-game">
-          <button onClick={handleLeave}>Opustit hru</button>
-          <h1>Konec hry čau</h1>
-        </div>
-      )
-    }
+    if (question) {return (<Question question={question} handleLeave={handleLeave}/>)}
+    else if (questionResult) {return (<QuestionResult questionResult={questionResult} handleLeave={handleLeave}/>)}
+    else if (gameEnded) {return (<GameResult handleLeave={handleLeave}/>)}
   }
 };
 
