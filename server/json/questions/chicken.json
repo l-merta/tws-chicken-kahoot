@@ -2,11 +2,11 @@
     {
         "question": "Jak prd?",
         "answers": [
-            "ano prd",
             "ne prd",
+            "ano prd",
             "hele možná prd"
         ],
-        "correct": 1
+        "correct": 0
     },
     {
         "question": "Jak pšouk?",
@@ -19,11 +19,11 @@
     {
         "question": "Jak bobek?",
         "answers": [
+            "vesmírný bobek",
             "ano bobek",
             "ne bobek",
-            "hele možná bobek",
-            "vesmírný bobek"
+            "hele možná bobek"
         ],
-        "correct": 3
+        "correct": 0
     }
 ]
