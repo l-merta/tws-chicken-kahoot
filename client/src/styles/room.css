@@ -62,7 +62,7 @@
   position: relative;
 }
 .main-room .list-users .users-count {
-  opacity: 0.8;
+  opacity: 1;
   color: var(--c2);
   background-color: var(--c5);
   font: 600 1.1rem var(--f1);
