@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 //import QRCode from 'react-qr-code';
 import socket from "./../components/socket";
@@ -35,6 +35,8 @@ const Room: React.FC = () => {
   const [isHost, setIsHost] = useState(false);
   const [newName, setNewName] = useState("");
   const [newNameSet, setNewNameSet] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const newNameRef = useRef<string>("");
   //const [hostLeftMessage, setHostLeftMessage] = useState("");
   const [error, setError] = useState<ErrorProps>();
   const [gameStarted, setGameStarted] = useState(false);
@@ -101,17 +103,39 @@ const Room: React.FC = () => {
     navigate("/");
   };
 
-  const handleNameChange = () => {
-    if (newName) {
-      socket.emit("changeName", { roomId, newName });
-      setNewNameSet(true);
-      setNewName("");
-    }
-  };
-
   const startGame = () => {
     if (isHost) {
       socket.emit("startGame", roomId);
+    }
+  };
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+
+    // Update the ref value whenever newName changes
+    newNameRef.current = newName;
+
+    // Add event listener for 'Enter' key press
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        handleNameChange();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [newName]); // Update the ref when newName changes
+
+  const handleNameChange = () => {
+    if (newNameRef.current) {
+      socket.emit("changeName", { roomId, newName: newNameRef.current });
+      setNewNameSet(true);
+      setNewName("");
     }
   };
 
@@ -164,6 +188,7 @@ const Room: React.FC = () => {
           <div className="input-text">
             <input
               type="text"
+              ref={inputRef}
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               placeholder="Uživatelské jméno"

@@ -49,6 +49,7 @@
   position: absolute;
   top: 1vw;
   left: 1vw;
+  z-index: 100;
 }
 .main-room .list-users {
   background-color: var(--c6);
