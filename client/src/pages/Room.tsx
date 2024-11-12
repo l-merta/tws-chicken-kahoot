@@ -19,6 +19,10 @@ interface QuestionProps {
   answers: Array<String>;
   time: number;
 }
+interface QuestionResultProps {
+  correctAnswer: string;
+  correctIndex: number;
+}
 
 const Room: React.FC = () => {
   const { roomId } = useParams<{ roomId: string }>();
@@ -30,7 +34,10 @@ const Room: React.FC = () => {
   //const [hostLeftMessage, setHostLeftMessage] = useState("");
   const [error, setError] = useState<ErrorProps>();
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameEnded, setLoadedGameEnded] = useState(false);
   //const [qrCodeUrl, setQrCodeUrl] = useState('');
+  const [question, setLoadedQuestion] = useState<QuestionProps | null>();
+  const [questionResult, setLoadedQuestionResult] = useState<QuestionResultProps | null>();
 
   useEffect(() => {
     if (roomId) {
@@ -50,12 +57,19 @@ const Room: React.FC = () => {
 
       socket.on("question", (question: QuestionProps) => {
         console.log(question)
+        setLoadedQuestion(question);
+        setLoadedQuestionResult(null);
       });
-      socket.on("questionResult", (message: string) => {
-        console.log(message)
+      socket.on("questionResult", (result: QuestionResultProps) => {
+        console.log(result)
+        setLoadedQuestion(null);
+        setLoadedQuestionResult(result);
       });
       socket.on("gameEnd", (message: string) => {
         console.log(message)
+        setLoadedQuestion(null);
+        setLoadedQuestionResult(null);
+        setLoadedGameEnded(true);
       });
 
       /*
@@ -157,12 +171,30 @@ const Room: React.FC = () => {
     );
   }
   else {
-    return (
-      <div className="main-room main-game">
-        <button onClick={handleLeave}>Opustit hru</button>
-        <h1>Hello ve hře</h1>
-      </div>
-    )
+    if (question) {
+      return (
+        <div className="main-room main-game">
+          <button onClick={handleLeave}>Opustit hru</button>
+          <h1>{question.question}</h1>
+        </div>
+      )
+    }
+    else if (questionResult) {
+      return (
+        <div className="main-room main-game">
+          <button onClick={handleLeave}>{questionResult.correctAnswer}</button>
+          <h1>Hej tady výsledky otázky</h1>
+        </div>
+      )
+    }
+    else if (gameEnded) {
+      return (
+        <div className="main-room main-game">
+          <button onClick={handleLeave}>Opustit hru</button>
+          <h1>Konec hry čau</h1>
+        </div>
+      )
+    }
   }
 };
 
