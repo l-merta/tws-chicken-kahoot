@@ -72,7 +72,7 @@ const Room: React.FC = () => {
         setLoadedQuestion(null);
         setLoadedQuestionResult(result);
       });
-      socket.on("gameEnd", (message: string) => {
+      socket.on("gameEnd", () => {
         //console.log(message)
         setLoadedQuestion(null);
         setLoadedQuestionResult(null);
