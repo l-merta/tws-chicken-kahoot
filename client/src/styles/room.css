@@ -203,6 +203,109 @@
   color: var(--c1);
   border-color: var(--c1);
 }
+.main-game .question-vp {
+  width: 100%;
+  height: -webkit-fill-available;
+  height: -moz-available;
+  height: fill;
+  display: flex;
+  flex-direction: column;
+}
+.main-game .question-vp .question-cont {
+  background-color: white;
+  width: 100%;
+  padding: 1.5vw 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.main-game .question-vp .question-cont .question {
+  font: 600 2rem var(--f1);
+  max-width: 70rem;
+  text-align: center;
+}
+.main-game .question-vp .question-cont button {
+  position: absolute;
+  top: 1vw;
+  left: 1vw;
+}
+.main-game .question-vp .question-info {
+  height: 100%;
+  padding: 1vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.main-game .question-vp .question-info .question-time-count {
+  color: var(--c2);
+  background-color: var(--c6);
+  font: 600 1.7rem var(--f1);
+  border-radius: 3rem;
+  padding: 0.5em 0.75em;
+  transition: 0.15s;
+}
+.main-game .question-vp .question-info img {
+  height: 45vh;
+  border-radius: 0.3rem;
+}
+.main-game .question-vp .question-info .answers-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+.main-game .question-vp .question-info .answers-count .count {
+  font: 600 1.6rem var(--f1);
+  text-align: center;
+}
+.main-game .question-vp .question-info .answers-count .text {
+  font: 400 1.2rem var(--f1);
+  text-align: center;
+}
+.main-game .answers {
+  width: 100%;
+  height: 30rem;
+  padding: 0.3vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.3vw;
+}
+.main-game .answers .ans {
+  color: var(--c2);
+  font: 600 1.2rem var(--f1);
+  border-radius: 0.3rem;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+}
+.main-game .answers .ans i {
+  font-size: 1.5em;
+}
+.main-game .answers .ans-1 {
+  background-color: var(--ans-1);
+}
+.main-game .answers .ans-2 {
+  background-color: var(--ans-2);
+}
+.main-game .answers .ans-3 {
+  background-color: var(--ans-3);
+}
+.main-game .answers .ans-4 {
+  background-color: var(--ans-4);
+}
+.main-game .answers .ans-correct {
+  background-color: greenyellow;
+}
+.main-game .answers .ans-selected {
+  background-color: red;
+}
+.main-game .answers .ans-left {
+  opacity: 0.4;
+}
 
 .main-error {
   display: flex;

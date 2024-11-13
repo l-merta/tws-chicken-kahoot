@@ -12,6 +12,7 @@ import './../styles/room.css';
 interface UserProps {
   id: string;
   name: string;
+  points: number;
   role: "host" | "guest";
 }
 interface ErrorProps {
@@ -206,7 +207,7 @@ const Room: React.FC = () => {
   }
   else {
     if (question) {return (<Question question={question} handleLeave={handleLeave}/>)}
-    else if (questionResult) {return (<QuestionResult questionResult={questionResult} handleLeave={handleLeave}/>)}
+    else if (questionResult) { return (<QuestionResult questionResult={questionResult} handleLeave={handleLeave}/>)}
     else if (gameEnded) {return (<GameResult handleLeave={handleLeave}/>)}
   }
 };

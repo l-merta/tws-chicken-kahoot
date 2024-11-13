@@ -4,7 +4,7 @@ interface GameResultProps {
   handleLeave: () => void;
 }
 
-const Question: React.FC<GameResultProps> = ({ handleLeave }) => (
+const GameResult: React.FC<GameResultProps> = ({ handleLeave }) => (
   <>
     <div className="main-room main-game">
       <button onClick={()=>{handleLeave()}}>Opustit hru</button>
@@ -13,4 +13,4 @@ const Question: React.FC<GameResultProps> = ({ handleLeave }) => (
   </>
 );
 
-export default Question;
+export default GameResult;

@@ -89,7 +89,8 @@ io.on("connection", (socket) => {
         room.gameStarted = true;
         room.currentQuestionIndex = 0;
         room.totalQuestions = 3; // Set number of questions for the game
-        room.timeForQuestion = 2; // Set time for each question
+        room.timeForQuestion = 14; // Set time for each question
+        room.timeForResult = 2;
   
         // Shuffle questions randomly before starting the game
         const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
@@ -131,13 +132,13 @@ io.on("connection", (socket) => {
               room.currentQuestionIndex++;
               if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < shuffledQuestions.length) {
                 // Send the next question after a short delay (e.g., 3 seconds)
-                setTimeout(sendQuestion, 3000);
+                setTimeout(sendQuestion, room.timeForResult * 1000);
               } else {
                 // Delay before sending the gameEnd message
                 setTimeout(() => {
                   io.to(roomId).emit("gameEnd", { message: "The game has ended! Thank you for playing." });
                   console.log(`Game ended in room ${roomId}`);
-                }, 3000); // Add delay before game end
+                }, room.timeForResult * 1000); // Add delay before game end
               }
             }, questionToSend.time * 1000);
   
@@ -150,6 +151,39 @@ io.on("connection", (socket) => {
   
         // Start the game by sending the first question
         sendQuestion();
+      }
+    }
+  });
+
+  // Handle answer submission
+  socket.on("submitAnswer", ({ roomId, answerIndex }) => {
+    const room = rooms.get(roomId);
+    if (!room) return;
+
+    const user = room.find((u) => u.id === socket.id);
+    if (user && !user.hasAnswered) {
+      user.hasAnswered = true;
+      user.selectedAnswer = answerIndex;
+
+      // Check if the answer is correct
+      const currentQuestion = room.currentQuestionIndex;
+      const correctIndex = room.correctAnswerIndex; // Assume you set this earlier
+      if (answerIndex === correctIndex) {
+        console.log("user " + user.name + " got the correct answer");
+        user.points = (user.points || 0) + 10; // Award points
+      }
+      else {
+        console.log("user " + user.name + " got the wrong answer");
+      }
+
+      // Check if all users have answered
+      if (room.every((u) => u.hasAnswered)) {
+        console.log("every user answered")
+        io.to(roomId).emit("questionResult", {
+          correctAnswer: correctIndex,
+          players: room.map((u) => ({ name: u.name, points: u.points }))
+        });
+        clearTimeout(room.timer); // Stop any countdown if all answered
       }
     }
   });
