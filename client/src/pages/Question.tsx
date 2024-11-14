@@ -53,13 +53,13 @@ const Question: React.FC<QuestionProps> = ({ question, handleLeave }) => {
     });
     // Listen for the result from the server
     socket.on("questionResult", (data) => {
-      console.log(data);
+      //console.log(data);
       setTimeLeft(0);
       setCorrectAnswerIndex(data.correctIndex - 1); // Convert 1-based to 0-based
       //setAnswerResults(data);
       //
-      console.log("sel: ", selectedAnswer);
-      console.log("cor: ", data.correctIndex - 1);
+      //console.log("sel: ", selectedAnswer);
+      //console.log("cor: ", data.correctIndex - 1);
       //
       setTimeout(() => {
         setSelectedAnswer(null); // Reset for the next question
@@ -101,7 +101,7 @@ const Question: React.FC<QuestionProps> = ({ question, handleLeave }) => {
             </div>
           </div>
         </div>
-        <div className="answers">
+        <div className={"answers " + (questionData.answers.length <= 2 ? "answers-2" : "")}>
           {questionData.answers.map((answer: string, index: number) => (
             <button
               key={index}

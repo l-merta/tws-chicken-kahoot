@@ -296,6 +296,7 @@
         align-items: center;
         gap: 0.8rem;
         cursor: pointer;
+        transition: .12s;
 
         i {
           font-size: 1.5em;
@@ -349,4 +350,16 @@
             text-align: center;
         }
     }
+}
+
+@media only screen and (max-width: 600px) {
+  .question-vp {
+    display: none !important;
+  }
+  .answers {
+    height: 100% !important;
+  }
+  .answers-2 {
+    grid-template-columns: 1fr !important;
+  }
 }
