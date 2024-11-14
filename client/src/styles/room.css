@@ -299,12 +299,13 @@
   background-color: var(--ans-4);
 }
 .main-game .answers .ans-correct {
-  background-color: greenyellow;
+  background-color: rgb(80, 153, 80);
 }
 .main-game .answers .ans-selected {
-  background-color: red;
+  background-color: rgb(228, 48, 48);
 }
 .main-game .answers .ans-left {
+  background-color: gray;
   opacity: 0.4;
 }
 

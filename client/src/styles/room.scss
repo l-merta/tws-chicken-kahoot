@@ -314,12 +314,13 @@
         background-color: var(--ans-4);
       }
       .ans-correct {
-        background-color: greenyellow;
+        background-color: rgb(80, 153, 80);
       }
       .ans-selected {
-        background-color: red;
+        background-color: rgb(228, 48, 48);
       }
       .ans-left {
+        background-color: gray;
         opacity: 0.4;
       }
     }

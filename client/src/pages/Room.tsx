@@ -23,6 +23,7 @@ interface QuestionProps {
   question: string;
   answers: Array<String>;
   time: number;
+  playerCount: number;
 }
 interface QuestionResultProps {
   correctAnswer: string;

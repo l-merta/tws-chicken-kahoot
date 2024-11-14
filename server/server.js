@@ -113,7 +113,8 @@ io.on("connection", (socket) => {
             const questionToSend = {
               question: question.question,
               answers: scrambledAnswers,
-              time: room.timeForQuestion
+              time: room.timeForQuestion,
+              playerCount: room.length
             };
 
             room.forEach((u) => u.hasAnswered = false); // Reset answered status for players
@@ -171,11 +172,23 @@ io.on("connection", (socket) => {
         console.log(`User ${user.name} got the wrong answer`);
       }
 
+      // Count the number of users who have answered
+      const answeredCount = room.filter((u) => u.hasAnswered).length;
+      const totalUsers = room.length;
+
+      // Emit the number of users who have answered to all clients in the room
+      io.to(roomId).emit("answerProgress", {
+        answeredCount: answeredCount,
+        totalUsers: totalUsers
+      });
+
+      console.log(`Progress: ${answeredCount}/${totalUsers} users have answered in room ${roomId}`);
+
       // Check if all users have answered
-      if (room.every((u) => u.hasAnswered)) {
+      if (answeredCount === totalUsers) {
         console.log("All users have answered");
         io.to(roomId).emit("questionResult", {
-          correctAnswer: room.correctAnswerIndex + 1, // Send 1-based index for display
+          correctIndex: room.correctAnswerIndex + 1,
           players: room.map((u) => ({ name: u.name, points: u.points })),
           timeForResult: room.timeForResult
         });
