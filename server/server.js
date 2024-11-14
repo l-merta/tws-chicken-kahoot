@@ -80,6 +80,7 @@ io.on("connection", (socket) => {
     console.log(`User ${socket.id} joined room ${roomId} as ${role} with name ${newUserName}`);
   });
 
+  let sendQuestion = () => {}
   // Handle starting the game
   socket.on("startGame", (roomId) => {
     const room = rooms.get(roomId);
@@ -90,65 +91,62 @@ io.on("connection", (socket) => {
         room.currentQuestionIndex = 0;
         room.totalQuestions = 3; // Set number of questions for the game
         room.timeForQuestion = 14; // Set time for each question
-        room.timeForResult = 2;
-  
+        room.timeForResult = 3; // Time for showing the result
+
         // Shuffle questions randomly before starting the game
         const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
-  
+
         io.to(roomId).emit("gameState", { gameStarted: true });
         console.log(`Game started in room ${roomId}`);
-  
+
         // Helper function to send the next question
-        const sendQuestion = () => {
+        sendQuestion = () => {
           if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < shuffledQuestions.length) {
             const question = shuffledQuestions[room.currentQuestionIndex];
-  
+
             // Shuffle the answers for each question
             const answers = question.answers.slice();
             const correctAnswer = answers[question.correct];
             const scrambledAnswers = answers.sort(() => Math.random() - 0.5);
-            const newCorrectIndex = scrambledAnswers.indexOf(correctAnswer);
-  
+            room.correctAnswerIndex = scrambledAnswers.indexOf(correctAnswer);
+
             const questionToSend = {
               question: question.question,
               answers: scrambledAnswers,
               time: room.timeForQuestion
             };
-  
+
+            room.forEach((u) => u.hasAnswered = false); // Reset answered status for players
+
             io.to(roomId).emit("question", questionToSend);
             console.log(`Question ${room.currentQuestionIndex + 1} sent to room ${roomId}`);
-            console.log(`Correct answer is: "${correctAnswer}" at position ${newCorrectIndex + 1} in scrambled answers`);
-  
-            // Wait for the time specified, then emit the question result
-            setTimeout(() => {
+
+            // Wait for question time to elapse before sending result
+            room.timer = setTimeout(() => {
               io.to(roomId).emit("questionResult", {
-                message: "Time's up! Here is the correct answer.",
-                correctAnswer: correctAnswer,
-                correctIndex: newCorrectIndex + 1 // Send 1-based index for display
+                correctIndex: room.correctAnswerIndex + 1, // Send 1-based index for display
+                correctAnswer: correctAnswer
               });
               console.log(`Result for question ${room.currentQuestionIndex + 1} emitted to room ${roomId}`);
-              console.log(`The correct answer was "${correctAnswer}" at position ${newCorrectIndex + 1}`);
-  
-              room.currentQuestionIndex++;
-              if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < shuffledQuestions.length) {
-                // Send the next question after a short delay (e.g., 3 seconds)
-                setTimeout(sendQuestion, room.timeForResult * 1000);
-              } else {
-                // Delay before sending the gameEnd message
-                setTimeout(() => {
+
+              // Delay for showing the result before sending the next question
+              setTimeout(() => {
+                room.currentQuestionIndex++;
+                if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < shuffledQuestions.length) {
+                  sendQuestion();
+                } else {
                   io.to(roomId).emit("gameEnd", { message: "The game has ended! Thank you for playing." });
                   console.log(`Game ended in room ${roomId}`);
-                }, room.timeForResult * 1000); // Add delay before game end
-              }
-            }, questionToSend.time * 1000);
-  
+                }
+              }, room.timeForResult * 1000);
+
+            }, room.timeForQuestion * 1000);
           } else {
-            // Safety check if the game exceeds the available number of questions
             io.to(roomId).emit("gameEnd", { message: "The game has ended! Thank you for playing." });
             console.log(`Game ended in room ${roomId}`);
           }
         };
-  
+
         // Start the game by sending the first question
         sendQuestion();
       }
@@ -166,24 +164,30 @@ io.on("connection", (socket) => {
       user.selectedAnswer = answerIndex;
 
       // Check if the answer is correct
-      const currentQuestion = room.currentQuestionIndex;
-      const correctIndex = room.correctAnswerIndex; // Assume you set this earlier
-      if (answerIndex === correctIndex) {
-        console.log("user " + user.name + " got the correct answer");
+      if (answerIndex === room.correctAnswerIndex) {
+        console.log(`User ${user.name} got the correct answer`);
         user.points = (user.points || 0) + 10; // Award points
-      }
-      else {
-        console.log("user " + user.name + " got the wrong answer");
+      } else {
+        console.log(`User ${user.name} got the wrong answer`);
       }
 
       // Check if all users have answered
       if (room.every((u) => u.hasAnswered)) {
-        console.log("every user answered")
+        console.log("All users have answered");
         io.to(roomId).emit("questionResult", {
-          correctAnswer: correctIndex,
-          players: room.map((u) => ({ name: u.name, points: u.points }))
+          correctAnswer: room.correctAnswerIndex + 1, // Send 1-based index for display
+          players: room.map((u) => ({ name: u.name, points: u.points })),
+          timeForResult: room.timeForResult
         });
         clearTimeout(room.timer); // Stop any countdown if all answered
+
+        // Send the next question after room.timeForResult seconds
+        setTimeout(() => {
+          if (room.currentQuestionIndex < room.totalQuestions) {
+            room.currentQuestionIndex++;
+            sendQuestion();
+          }
+        }, room.timeForResult * 1000);
       }
     }
   });

@@ -275,6 +275,7 @@
 .main-game .answers .ans {
   color: var(--c2);
   font: 600 1.2rem var(--f1);
+  border: none;
   border-radius: 0.3rem;
   padding: 1rem 2rem;
   display: flex;

@@ -64,7 +64,7 @@ const Room: React.FC = () => {
       });
 
       socket.on("question", (question: QuestionProps) => {
-        //console.log(question)
+        console.log("question in Room.tsx")
         setLoadedQuestion(question);
         setLoadedQuestionResult(null);
       });
