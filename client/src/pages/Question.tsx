@@ -22,7 +22,7 @@ const Question: React.FC<QuestionProps> = ({ question, handleLeave }) => {
   const [timeLeft, setTimeLeft] = useState<number>(question.time);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number | null>(null);
-  const [answerResults, setAnswerResults] = useState<{ correctIndex: number } | null>(null);
+  //const [answerResults, setAnswerResults] = useState<{ correctIndex: number } | null>(null);
   const [answerCount, setAnswerCount] = useState<AnswerCount>({
     answeredCount: 0,
     totalUsers: question.playerCount
@@ -56,7 +56,7 @@ const Question: React.FC<QuestionProps> = ({ question, handleLeave }) => {
       console.log(data);
       setTimeLeft(0);
       setCorrectAnswerIndex(data.correctIndex - 1); // Convert 1-based to 0-based
-      setAnswerResults(data);
+      //setAnswerResults(data);
       //
       console.log("sel: ", selectedAnswer);
       console.log("cor: ", data.correctIndex - 1);
