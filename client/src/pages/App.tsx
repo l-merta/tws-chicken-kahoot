@@ -6,11 +6,14 @@ const App: React.FC = () => (
   <>
     <main>
       <div className="s1">
-        <a href="https://github.com/l-merta/tws-chicken-kahoot" target="_blank">github</a>
+        <a className="link-github" href="https://github.com/l-merta/tws-chicken-kahoot" target="_blank">
+          <i className="fa-brands fa-square-github"></i>
+          <span>Github</span>
+        </a>
         <h1>SLEPICE</h1>
         <h2>
-          Slepičí Kahoot
-          <span> | Lukáš Merta</span>
+          <span>Slepičí Kahoot</span>
+          <span className="author"> | Lukáš Merta</span>
         </h2>
         <div className="links">
           <div className="links-2">

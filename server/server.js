@@ -232,8 +232,6 @@ io.on("connection", (socket) => {
 });
 
 let sendQuestion = (room, roomId) => {
-
-
   if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < room.shuffledQuestions.length) {
     const question = room.shuffledQuestions[room.currentQuestionIndex];
 
@@ -267,7 +265,7 @@ let sendQuestion = (room, roomId) => {
       setTimeout(() => {
         room.currentQuestionIndex++;
         if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < room.shuffledQuestions.length) {
-          sendQuestion();
+          sendQuestion(room, roomId);
         } else {
           io.to(roomId).emit("gameEnd", { message: "The game has ended! Thank you for playing." });
           console.log(`Game ended in room ${roomId}`);

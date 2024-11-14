@@ -340,6 +340,14 @@
   .answers {
     height: 100% !important;
   }
+  .answers button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .answers button span {
+    display: none;
+  }
   .answers-2 {
     grid-template-columns: 1fr !important;
   }

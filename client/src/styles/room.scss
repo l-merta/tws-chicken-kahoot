@@ -358,6 +358,16 @@
   }
   .answers {
     height: 100% !important;
+
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            display: none;
+        }
+    }
   }
   .answers-2 {
     grid-template-columns: 1fr !important;
