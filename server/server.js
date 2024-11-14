@@ -80,7 +80,6 @@ io.on("connection", (socket) => {
     console.log(`User ${socket.id} joined room ${roomId} as ${role} with name ${newUserName}`);
   });
 
-  let sendQuestion = () => {}
   // Handle starting the game
   socket.on("startGame", (roomId) => {
     const room = rooms.get(roomId);
@@ -92,64 +91,16 @@ io.on("connection", (socket) => {
         room.totalQuestions = 3; // Set number of questions for the game
         room.timeForQuestion = 14; // Set time for each question
         room.timeForResult = 3; // Time for showing the result
+        room.shuffledQuestions = questions.sort(() => Math.random() - 0.5);
 
         // Shuffle questions randomly before starting the game
-        const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+        //const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
 
         io.to(roomId).emit("gameState", { gameStarted: true });
         console.log(`Game started in room ${roomId}`);
 
-        // Helper function to send the next question
-        sendQuestion = () => {
-          if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < shuffledQuestions.length) {
-            const question = shuffledQuestions[room.currentQuestionIndex];
-
-            // Shuffle the answers for each question
-            const answers = question.answers.slice();
-            const correctAnswer = answers[question.correct];
-            const scrambledAnswers = answers.sort(() => Math.random() - 0.5);
-            room.correctAnswerIndex = scrambledAnswers.indexOf(correctAnswer);
-
-            const questionToSend = {
-              question: question.question,
-              answers: scrambledAnswers,
-              time: room.timeForQuestion,
-              playerCount: room.length
-            };
-
-            room.forEach((u) => u.hasAnswered = false); // Reset answered status for players
-
-            io.to(roomId).emit("question", questionToSend);
-            console.log(`Question ${room.currentQuestionIndex + 1} sent to room ${roomId}`);
-
-            // Wait for question time to elapse before sending result
-            room.timer = setTimeout(() => {
-              io.to(roomId).emit("questionResult", {
-                correctIndex: room.correctAnswerIndex + 1, // Send 1-based index for display
-                correctAnswer: correctAnswer
-              });
-              console.log(`Result for question ${room.currentQuestionIndex + 1} emitted to room ${roomId}`);
-
-              // Delay for showing the result before sending the next question
-              setTimeout(() => {
-                room.currentQuestionIndex++;
-                if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < shuffledQuestions.length) {
-                  sendQuestion();
-                } else {
-                  io.to(roomId).emit("gameEnd", { message: "The game has ended! Thank you for playing." });
-                  console.log(`Game ended in room ${roomId}`);
-                }
-              }, room.timeForResult * 1000);
-
-            }, room.timeForQuestion * 1000);
-          } else {
-            io.to(roomId).emit("gameEnd", { message: "The game has ended! Thank you for playing." });
-            console.log(`Game ended in room ${roomId}`);
-          }
-        };
-
         // Start the game by sending the first question
-        sendQuestion();
+        sendQuestion(room, roomId);
       }
     }
   });
@@ -197,8 +148,9 @@ io.on("connection", (socket) => {
         // Send the next question after room.timeForResult seconds
         setTimeout(() => {
           if (room.currentQuestionIndex < room.totalQuestions) {
+            console.log("sending another question");
             room.currentQuestionIndex++;
-            sendQuestion();
+            sendQuestion(room, roomId);
           }
         }, room.timeForResult * 1000);
       }
@@ -278,6 +230,56 @@ io.on("connection", (socket) => {
     });
   });
 });
+
+let sendQuestion = (room, roomId) => {
+
+
+  if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < room.shuffledQuestions.length) {
+    const question = room.shuffledQuestions[room.currentQuestionIndex];
+
+    // Shuffle the answers for each question
+    const answers = question.answers.slice();
+    const correctAnswer = answers[question.correct];
+    const scrambledAnswers = answers.sort(() => Math.random() - 0.5);
+    room.correctAnswerIndex = scrambledAnswers.indexOf(correctAnswer);
+
+    const questionToSend = {
+      question: question.question,
+      answers: scrambledAnswers,
+      time: room.timeForQuestion,
+      playerCount: room.length
+    };
+
+    room.forEach((u) => u.hasAnswered = false); // Reset answered status for players
+
+    io.to(roomId).emit("question", questionToSend);
+    console.log(`Question ${room.currentQuestionIndex + 1} sent to room ${roomId}`);
+
+    // Wait for question time to elapse before sending result
+    room.timer = setTimeout(() => {
+      io.to(roomId).emit("questionResult", {
+        correctIndex: room.correctAnswerIndex + 1, // Send 1-based index for display
+        correctAnswer: correctAnswer
+      });
+      console.log(`Result for question ${room.currentQuestionIndex + 1} emitted to room ${roomId}`);
+
+      // Delay for showing the result before sending the next question
+      setTimeout(() => {
+        room.currentQuestionIndex++;
+        if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < room.shuffledQuestions.length) {
+          sendQuestion();
+        } else {
+          io.to(roomId).emit("gameEnd", { message: "The game has ended! Thank you for playing." });
+          console.log(`Game ended in room ${roomId}`);
+        }
+      }, room.timeForResult * 1000);
+
+    }, room.timeForQuestion * 1000);
+  } else {
+    io.to(roomId).emit("gameEnd", { message: "The game has ended! Thank you for playing." });
+    console.log(`Game ended in room ${roomId}`);
+  }
+};
 
 // Start the server
 server.listen(PORT, () => {

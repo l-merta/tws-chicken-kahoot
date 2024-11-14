@@ -1,16 +1,23 @@
+body {
+    color: var(--c2);
+    background: rgb(36,20,45);
+    background: linear-gradient(90deg, rgba(36,20,45,1) 0%, rgba(13,13,13,1) 75%);
+}
 main {
     width: 100%;
+    height: 80vh !important;
     height: fit-content;
     display: flex;
+    justify-content: center;
     align-items: center;
 
     .s1 {
-        width: 65%;
+        width: 100%;
         height: 100%;
-        padding: 0 6vw;
+        padding-left: 12vw;
         display: flex;
-        justify-content: center;
         flex-direction: column;
+        justify-content: center;
 
         h1 {
             font: 600 3rem var(--f1);
@@ -20,7 +27,14 @@ main {
         h2 {
             opacity: 0.7;
             font: 500 1.7rem var(--f1);
-            margin: 0.8rem 0;
+            margin: 1.0rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+
+            span {
+                font: 400 1.1rem var(--f1);
+            }
         }
         .links {
             margin-top: 0.5rem;
@@ -36,13 +50,20 @@ main {
             a {
                 color: var(--c1);
                 font-weight: 500;
-                text-decoration: none;text-transform: uppercase;
+                text-decoration: none;
+                text-transform: uppercase;
             }
             .link-kahoot {
-                color: var(--c2);
-                background-color: var(--c3);
+                color: var(--c1);
+                background-color: var(--c2);
+                border-bottom: 3px solid gray;
                 border-radius: 0.2rem;
                 padding: 0.6rem 0.8rem;
+                transition: .12s;
+            }
+            .link-kahoot:hover {
+                color: var(--c6);
+                border-color: rgba(var(--c5-v), 0.8);
             }
             .link-basic {
                 color: var(--c4);
@@ -54,11 +75,14 @@ main {
         }
     }
     .s2 {
-        width: 100%;
+        width: 80%;
         height: 100%;
+        padding: 4vw;
 
         img {
-            width: calc(100% - 1vw);
+            width: calc(100% - 0vw);
+            height: 100%;
+            border-radius: 0.5rem;
             object-fit: cover;
         }
     }
