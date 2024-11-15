@@ -8,9 +8,6 @@ const { Server } = require("socket.io");
 const app = express();
 const PORT = process.env.PORT || 5200;
 
-// Load questions from the JSON file
-const questions = JSON.parse(fs.readFileSync(path.join(__dirname, 'json/questions/chicken.json'), 'utf-8'));
-
 app.use(cors());
 app.use(express.static("public"));
 
@@ -72,6 +69,13 @@ io.on("connection", (socket) => {
     const user = { id: socket.id, name: newUserName, role };
     room.push(user);
     socket.join(roomId);
+
+    if(role === "host") {
+      changeTheme(room, roomId, "chicken");
+    }
+    else {
+      sendTheme(room, roomId);
+    }
   
     // Emit updated user list and role assignment
     io.to(roomId).emit("roomUsers", room);
@@ -88,10 +92,8 @@ io.on("connection", (socket) => {
       if (user && user.role === "host") {
         room.gameStarted = true;
         room.currentQuestionIndex = 0;
-        room.totalQuestions = 3; // Set number of questions for the game
         room.timeForQuestion = 14; // Set time for each question
-        room.timeForResult = 3; // Time for showing the result
-        room.shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+        room.timeForResult = 2; // Time for showing the result
 
         // Shuffle questions randomly before starting the game
         //const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
@@ -180,6 +182,17 @@ io.on("connection", (socket) => {
     }
   });
 
+  // Handle changing the user's name
+  socket.on("changeTheme", ({ roomId, changed, newValue }) => {
+    const room = rooms.get(roomId);
+
+    console.log("new settings in room " + roomId, changed, newValue);
+    if (changed == "totalQuestions")
+      room.totalQuestions = newValue;
+    if (changed == "gameTheme")
+      changeTheme(room, roomId, newValue);
+  });
+
   // Handle leaving the room
   socket.on("leaveRoom", (roomId) => {
     const users = rooms.get(roomId);
@@ -245,6 +258,7 @@ let sendQuestion = (room, roomId) => {
       question: question.question,
       answers: scrambledAnswers,
       time: room.timeForQuestion,
+      timeForResult: room.timeForResult,
       playerCount: room.length
     };
 
@@ -278,6 +292,49 @@ let sendQuestion = (room, roomId) => {
     console.log(`Game ended in room ${roomId}`);
   }
 };
+let changeTheme = (room, roomId, themeName) => {
+  // Get all question files in the folder
+  const questionFiles = fs.readdirSync(path.join(__dirname, 'json/questions')).filter(file => file.endsWith('.json'));
+
+  // Create an array of objects with name and fileName properties
+  const questionNames = questionFiles.map(file => {
+    const filePath = path.join(__dirname, 'json/questions', file);
+    const questionData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    
+    return {
+      name: questionData.name, // Extract the 'name' property from the file content
+      fileName: path.basename(file, '.json') // Extract the file name without the '.json' extension
+    };
+  });
+
+  // Load questions for the selected theme
+  const questionFile = JSON.parse(fs.readFileSync(path.join(__dirname, 'json/questions', themeName + '.json'), 'utf-8'));
+
+  room.theme = themeName;
+  room.themeDisplayName = questionFile.name;
+  room.shuffledQuestions = questionFile.questions.sort(() => Math.random() - 0.5);
+  room.maxQuestions = questionFile.questions.length;
+  room.totalQuestions = (!room.totalQuestions || room.totalQuestions > questionFile.questions.length) && questionFile.questions.length >= 12
+    ? 12
+    : questionFile.questions.length;
+
+  // Include the array of question names when sending theme data
+  room.availableThemes = questionNames;
+
+  sendTheme(room, roomId);
+}
+let sendTheme = (room, roomId) => {
+  const roomThemeData = {
+    theme: room.theme,
+    themeDisplayName: room.themeDisplayName,
+    totalQuestions: room.totalQuestions,
+    maxQuestions: room.maxQuestions,
+    availableThemes: room.availableThemes
+  }
+
+  console.log(roomThemeData + " to room " + roomId);
+  io.to(roomId).emit("gameTheme", roomThemeData);
+}
 
 // Start the server
 server.listen(PORT, () => {

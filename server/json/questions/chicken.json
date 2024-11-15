@@ -1,29 +1,32 @@
-[
-    {
-        "question": "Jak prd?",
-        "answers": [
-            "ne prd",
-            "ano prd",
-            "hele možná prd"
-        ],
-        "correct": 0
-    },
-    {
-        "question": "Jak pšouk?",
-        "answers": [
-            "ano pšouk",
-            "ne pšouk"
-        ],
-        "correct": 0
-    },
-    {
-        "question": "Jak bobek?",
-        "answers": [
-            "vesmírný bobek",
-            "ano bobek",
-            "ne bobek",
-            "hele možná bobek"
-        ],
-        "correct": 0
-    }
-]
+{
+    "name": "Slepice",
+    "questions": [
+        {
+            "question": "Jak prd?",
+            "answers": [
+                "ne prd",
+                "ano prd",
+                "hele možná prd"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "Jak pšouk?",
+            "answers": [
+                "ano pšouk",
+                "ne pšouk"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "Jak bobek?",
+            "answers": [
+                "vesmírný bobek",
+                "ano bobek",
+                "ne bobek",
+                "hele možná bobek"
+            ],
+            "correct": 0
+        }
+    ]
+}

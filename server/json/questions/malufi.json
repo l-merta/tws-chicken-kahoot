@@ -1,0 +1,31 @@
+{
+    "name": "Malufi",
+    "questions": [
+        {
+            "question": "Je Malufi nejlepší na světě hola hej?",
+            "answers": [
+                "rozhodně ano",
+                "ano"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "Kdo je největší dříč v Malufi?",
+            "answers": [
+                "LoLo, kupte si kolo",
+                "Tomate",
+                "Fejfa lebeda"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "Malufi měsíční obrat",
+            "answers": [
+                "10 000 000",
+                "1 000 000",
+                "100 000"
+            ],
+            "correct": 0
+        }
+    ]
+}

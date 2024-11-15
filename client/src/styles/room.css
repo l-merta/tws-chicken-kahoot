@@ -189,6 +189,9 @@
   font: 600 1.2rem var(--f1);
   white-space: nowrap;
 }
+.main-room .list-users .host-menu .settings .item input {
+  border-radius: 0.2rem;
+}
 .main-room .list-users .host-menu .settings .item input[type=checkbox] {
   appearance: none; /* For modern browsers */
   -webkit-appearance: none; /* For WebKit browsers */
@@ -205,6 +208,7 @@
   color: var(--c2);
   background-color: transparent;
   font: 500 1.1rem var(--f1);
+  border-radius: 0.2rem;
   padding: 0.3rem 0.5rem;
 }
 .main-room .list-users .host-menu .settings .item select option {

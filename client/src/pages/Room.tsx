@@ -23,6 +23,7 @@ interface QuestionProps {
   question: string;
   answers: Array<String>;
   time: number;
+  timeForResult: number;
   playerCount: number;
 }
 interface QuestionResultProps {
@@ -41,6 +42,8 @@ const Room: React.FC = () => {
   const newNameRef = useRef<string>("");
   //const [hostLeftMessage, setHostLeftMessage] = useState("");
   const [error, setError] = useState<ErrorProps>();
+  const [gameTheme, setGameTheme] = useState<any>({});
+  const totalQuestionsRef = useRef<HTMLInputElement | null>(null);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameEnded, setLoadedGameEnded] = useState(false);
   //const [qrCodeUrl, setQrCodeUrl] = useState('');
@@ -64,6 +67,14 @@ const Room: React.FC = () => {
         setIsHost(role === "host");
       });
 
+      
+      socket.on("gameTheme", (data: any) => {
+        console.log(data);
+        setGameTheme(data);
+        console.log(totalQuestionsRef.current);
+        if (totalQuestionsRef.current && totalQuestionsRef.current.value > data.maxQuestions)
+          totalQuestionsRef.current.value = data.maxQuestions;
+      });
       socket.on("question", (question: QuestionProps) => {
         console.log("question in Room.tsx")
         setLoadedQuestion(question);
@@ -141,6 +152,28 @@ const Room: React.FC = () => {
       setNewName("");
     }
   };
+  const handleSettingsChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name } = e.target;
+
+    if (name == "totalQuestions") {
+      if (parseInt(e.target.value) < 1)
+        e.target.value = "1";
+      else if (parseInt(e.target.value) > gameTheme.maxQuestions)
+        e.target.value = gameTheme.maxQuestions;
+    }
+
+    const { value } = e.target;
+    const newValue = value; //type === 'checkbox' ? checked : value;
+  
+    // Update the gameTheme state (if needed)
+    setGameTheme((prevTheme: any) => ({
+      ...prevTheme,
+      [name]: newValue,
+    }));
+  
+    // Emit the change to the server
+    socket.emit('changeTheme', { roomId, changed: name, newValue: newValue });
+  };
 
   if (error) {
     return (
@@ -186,7 +219,7 @@ const Room: React.FC = () => {
             ))}
           </div>
           {!isHost &&
-            <span className="game-theme">Slepice</span>
+            <span className="game-theme">{gameTheme.themeDisplayName}</span>
           }
           {isHost && 
             <div className="host-menu">
@@ -198,23 +231,20 @@ const Room: React.FC = () => {
                 </div>
                 <div className="item">
                   <span>Téma</span>
-                  <select name="themes" id="themes">
-                    <option value="chicken">Slepice</option>
-                    <option value="tws">TWS</option>
+                  <select name="gameTheme" id="gameTheme" onChange={(e) => handleSettingsChange(e)}>
+                    {gameTheme.availableThemes.map((theme: any) => (
+                      <option value={theme.fileName}>{theme.name}</option>
+                    ))}
                   </select>
                 </div>
                 <div className="item">
                   <span>Počet otázek</span>
-                  <input type="number" max="25" name="questionCount" id="questionCount" />
+                  <input type="number" ref={totalQuestionsRef} defaultValue={gameTheme.totalQuestions} min={1} max={gameTheme.maxQuestions} name="totalQuestions" id="totalQuestions"  onChange={(e) => handleSettingsChange(e)} />
                 </div>
               </div>
             </div>
           }
         </div>
-        {/* {isHost && (!gameStarted && <button onClick={startGame}>Start Game</button>)}
-        <div>
-          <h3>Game Status: {gameStarted ? "Game in Progress" : "Waiting to Start"}</h3>
-        </div> */}
         <div className={"popup-cont " + (newNameSet && "disabled")}>
           <div className="input-text">
             <input

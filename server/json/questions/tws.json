@@ -1,0 +1,21 @@
+{
+    "name": "TWS",
+    "questions": [
+        {
+            "question": "Jsou webovky supr?",
+            "answers": [
+                "rozhodně",
+                "ano"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "Je JavaScript nejlepší",
+            "answers": [
+                "rozhodně",
+                "ne"
+            ],
+            "correct": 0
+        }
+    ]
+}

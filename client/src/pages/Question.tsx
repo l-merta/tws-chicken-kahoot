@@ -7,6 +7,7 @@ interface QuestionProps {
     question: string;
     answers: Array<String>;
     time: number;
+    timeForResult: number;
     playerCount: number;
   };
   handleLeave: () => void;
@@ -49,22 +50,15 @@ const Question: React.FC<QuestionProps> = ({ question, handleLeave }) => {
         answeredCount: 0,
         totalUsers: question.playerCount
       })
-      //setLoadedQuestionResult(null);
     });
     // Listen for the result from the server
     socket.on("questionResult", (data) => {
-      //console.log(data);
       setTimeLeft(0);
       setCorrectAnswerIndex(data.correctIndex - 1); // Convert 1-based to 0-based
-      //setAnswerResults(data);
-      //
-      //console.log("sel: ", selectedAnswer);
-      //console.log("cor: ", data.correctIndex - 1);
-      //
       setTimeout(() => {
         setSelectedAnswer(null); // Reset for the next question
         setCorrectAnswerIndex(null);
-      }, 3000); // Display result for 3 seconds
+      }, question.timeForResult * 1000); // Display result for 3 seconds
     });
     // Listen for the result from the server
     socket.on("answerProgress", (data: any) => {

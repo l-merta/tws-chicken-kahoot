@@ -201,6 +201,9 @@
                   font: 600 1.2rem var(--f1);
                   white-space: nowrap;
                 }
+                input {
+                  border-radius: 0.2rem;
+                }
                 input[type="checkbox"] {
                   appearance: none; /* For modern browsers */
                   -webkit-appearance: none; /* For WebKit browsers */
@@ -218,6 +221,7 @@
                   background-color: transparent;
                   font: 500 1.1rem var(--f1);
                   //height: 1.5rem;
+                  border-radius: 0.2rem;
                   padding: 0.3rem 0.5rem;
 
                   option {
