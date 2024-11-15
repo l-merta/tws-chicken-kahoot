@@ -262,8 +262,8 @@ const Room: React.FC = () => {
   }
   else {
     if (question) {return (<Question question={question} handleLeave={handleLeave}/>)}
-    else if (questionResult) { return (<QuestionResult questionResult={questionResult} handleLeave={handleLeave}/>)}
     else if (gameEnded) {return (<GameResult handleLeave={handleLeave}/>)}
+    {/* else if (questionResult) { return (<QuestionResult questionResult={questionResult} handleLeave={handleLeave}/>)} */}
   }
 };
 
