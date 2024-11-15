@@ -4,7 +4,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import socket from "./../components/socket";
 
 import Question from './Question';
-import QuestionResult from './QuestionResult';
+//import QuestionResult from './QuestionResult';
 import GameResult from './GameResult';
 
 import './../styles/room.css';
@@ -26,10 +26,12 @@ interface QuestionProps {
   timeForResult: number;
   playerCount: number;
 }
+/*
 interface QuestionResultProps {
   correctAnswer: string;
   correctIndex: number;
 }
+*/
 
 const Room: React.FC = () => {
   const { roomId } = useParams<{ roomId: string }>();
@@ -48,7 +50,7 @@ const Room: React.FC = () => {
   const [gameEnded, setLoadedGameEnded] = useState(false);
   //const [qrCodeUrl, setQrCodeUrl] = useState('');
   const [question, setLoadedQuestion] = useState<QuestionProps | null>();
-  const [questionResult, setLoadedQuestionResult] = useState<QuestionResultProps | null>();
+  //const [questionResult, setLoadedQuestionResult] = useState<QuestionResultProps | null>();
   const [qrCodeLarge, setQrCodeLarge] = useState(false);
 
   useEffect(() => {
@@ -78,17 +80,19 @@ const Room: React.FC = () => {
       socket.on("question", (question: QuestionProps) => {
         console.log("question in Room.tsx")
         setLoadedQuestion(question);
-        setLoadedQuestionResult(null);
+        //setLoadedQuestionResult(null);
       });
+      /*
       socket.on("questionResult", (result: QuestionResultProps) => {
         //console.log(result)
         setLoadedQuestion(null);
-        setLoadedQuestionResult(result);
+        //setLoadedQuestionResult(result);
       });
+      */
       socket.on("gameEnd", () => {
         //console.log(message)
         setLoadedQuestion(null);
-        setLoadedQuestionResult(null);
+        //setLoadedQuestionResult(null);
         setLoadedGameEnded(true);
       });
 
