@@ -185,7 +185,10 @@ const Room: React.FC = () => {
               </div>
             ))}
           </div>
-          {isHost && (!gameStarted && 
+          {!isHost &&
+            <span className="game-theme">Slepice</span>
+          }
+          {isHost && 
             <div className="host-menu">
               <button className="button-start-game" onClick={startGame}>Spustit hru</button>
               <div className="settings">
@@ -206,7 +209,7 @@ const Room: React.FC = () => {
                 </div>
               </div>
             </div>
-          )}
+          }
         </div>
         {/* {isHost && (!gameStarted && <button onClick={startGame}>Start Game</button>)}
         <div>

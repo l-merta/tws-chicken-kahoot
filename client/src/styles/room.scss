@@ -97,6 +97,15 @@
         //justify-content: center;
         position: relative;
 
+        .game-theme {
+          opacity: 0.4;
+          color: var(--c2);
+          font: 700 1.5rem var(--f1);
+          letter-spacing: 0.2rem;
+          position: absolute;
+          top: 1vw;
+          right: 1vw;
+        }
         .users-count {
             opacity: 1.0;
             color: var(--c2);
