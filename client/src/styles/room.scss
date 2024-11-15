@@ -92,9 +92,9 @@
         width: 100%;
         height: 100%; //calc(100vh - 8rem);
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        //flex-direction: column;
+        //align-items: center;
+        //justify-content: center;
         position: relative;
 
         .users-count {
@@ -115,10 +115,11 @@
         }
         .users-cont {
             width: 100%;
+            height: 100%;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: start;
+            align-items: center;
             gap: 0.8rem;
 
             .user {
@@ -151,6 +152,90 @@
                     padding: 0 1.0rem;
                 }
             }
+        }
+        .host-menu {
+          width: fit-content;
+          padding: 1vw 1vw 0 0;
+          display: flex;
+          flex-direction: column;
+          align-items: end;
+          justify-content: start;
+          gap: 1vw;
+
+          .button-start-game {
+              color: var(--c1);
+              background-color: var(--c2);
+              font: 700 1.2rem var(--f1);
+              border: none;
+              padding: 0.6rem 2.5rem;
+              white-space: nowrap;
+          }
+          .settings {
+              background-color: var(--c5);
+              //width: 20rem;
+              //height: 30rem;
+              border-radius: 0.2rem;
+              padding: 0.7rem 0.9rem;
+              display: flex;
+              flex-direction: column;
+              align-items: start;
+              justify-content: start;
+              gap: 0.7rem;
+
+              .item {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                span {
+                  opacity: 0.8;
+                  font: 600 1.2rem var(--f1);
+                  white-space: nowrap;
+                }
+                input[type="checkbox"] {
+                  appearance: none; /* For modern browsers */
+                  -webkit-appearance: none; /* For WebKit browsers */
+                  -moz-appearance: none; /* For Firefox */
+                  background-color: transparent;
+                  aspect-ratio: 1/1;
+                  height: 1.5rem;
+                  border: 1px solid gray;
+                }
+                input[type="checkbox"]:checked {
+                  background-color: var(--c2);
+                }
+                select {
+                  color: var(--c2);
+                  background-color: transparent;
+                  font: 500 1.1rem var(--f1);
+                  //height: 1.5rem;
+                  padding: 0.3rem 0.5rem;
+
+                  option {
+                    appearance: none; /* For modern browsers */
+                    -webkit-appearance: none; /* For WebKit browsers */
+                    -moz-appearance: none; /* For Firefox */
+                    opacity: 0.8;
+                    color: var(--c2);
+                    background-color: var(--c5);
+                    border: 1px solid rgba(128, 128, 128, 0.5);
+                  }
+                  option::selection {
+                    background-color: var(--c6);
+                  }
+                }
+                input[type="number"] {
+                  color: var(--c2);
+                  background-color: transparent;
+                  width: 5rem;
+                  border: 1px solid gray;
+                  padding: 0.3rem 0.5rem;
+                }
+                input:focus {
+                  outline: none;
+                }
+              }
+          }
         }
     }
     .input-text {
@@ -193,16 +278,6 @@
         button:hover {
             opacity: 0.9;
         }
-    }
-    .button-start-game {
-        color: var(--c1);
-        background-color: var(--c2);
-        font: 700 1.2rem var(--f1);
-        border: none;
-        padding: 0.6rem 2.5rem;
-        position: absolute;
-        top: 1vw;
-        right: 1vw;
     }
 }
 .main-game {

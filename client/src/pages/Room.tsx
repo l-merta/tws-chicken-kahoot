@@ -175,7 +175,6 @@ const Room: React.FC = () => {
         </h2>
         <div className="list-users">
           <div className="users-count"><i className="fa-solid fa-user"></i> {users.length}</div>
-          {isHost && (!gameStarted && <button className="button-start-game" onClick={startGame}>Spustit hru</button>)}
           <div className="users-cont">
             {users.map((user) => (
               <div className="user" key={user.id}>
@@ -186,6 +185,28 @@ const Room: React.FC = () => {
               </div>
             ))}
           </div>
+          {isHost && (!gameStarted && 
+            <div className="host-menu">
+              <button className="button-start-game" onClick={startGame}>Spustit hru</button>
+              <div className="settings">
+                <div className="item">
+                  <span>Zúčastnit se</span>
+                  <input type="checkbox" name="hostPlay" id="hostPlay" />
+                </div>
+                <div className="item">
+                  <span>Téma</span>
+                  <select name="themes" id="themes">
+                    <option value="chicken">Slepice</option>
+                    <option value="tws">TWS</option>
+                  </select>
+                </div>
+                <div className="item">
+                  <span>Počet otázek</span>
+                  <input type="number" max="25" name="questionCount" id="questionCount" />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         {/* {isHost && (!gameStarted && <button onClick={startGame}>Start Game</button>)}
         <div>
