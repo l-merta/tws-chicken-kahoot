@@ -14,6 +14,7 @@ interface UserProps {
   name: string;
   points: number;
   role: "host" | "guest";
+  isPlaying: boolean;
 }
 interface ErrorProps {
   code: number;
@@ -179,6 +180,12 @@ const Room: React.FC = () => {
     // Emit the change to the server
     socket.emit('changeTheme', { roomId, changed: name, newValue: newValue });
   };
+  const handleUserPlayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newIsPlaying = e.target.checked;
+    
+    // Emit the change to the server
+    socket.emit("toggleIsPlaying", { roomId, isPlaying: newIsPlaying });
+  };
 
   if (error) {
     return (
@@ -212,10 +219,10 @@ const Room: React.FC = () => {
           </span>
         </h2>
         <div className="list-users">
-          <div className="users-count"><i className="fa-solid fa-user"></i> {users.length}</div>
+          <div className="users-count"><i className="fa-solid fa-user"></i> {users.filter(user => user.isPlaying).length}</div>
           <div className="users-cont">
             {users.map((user) => (
-              <div className="user" key={user.id}>
+              <div className={"user " + (!user.isPlaying ? "user-notPlaying" : "")} key={user.id}>
                 <div className="img-cont">
                   <img src="/images/user/profile.png" alt="" />
                 </div>
@@ -228,11 +235,11 @@ const Room: React.FC = () => {
           }
           {isHost && 
             <div className="host-menu">
-              <button className="button-start-game" onClick={startGame}>Spustit hru</button>
+              <button className={"button-start-game " + (users.filter(user => user.isPlaying).length == 0 ? "button-start-game-inactive" : "")} onClick={startGame}>Spustit hru</button>
               <div className="settings">
                 <div className="item">
                   <span>Zúčastnit se</span>
-                  <input type="checkbox" name="hostPlay" id="hostPlay" />
+                  <input type="checkbox" name="hostPlay" id="hostPlay" value={users.filter(user => user.role == "host")[0].isPlaying ? "true" : "false"} onChange={handleUserPlayChange} />
                 </div>
                 <div className="item">
                   <span>Téma</span>

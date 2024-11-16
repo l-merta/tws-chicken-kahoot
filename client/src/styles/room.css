@@ -151,6 +151,9 @@
   align-items: center;
   padding: 0 1rem;
 }
+.main-room .list-users .users-cont .user-notPlaying {
+  opacity: 0.5;
+}
 .main-room .list-users .host-menu {
   width: -moz-fit-content;
   width: fit-content;
@@ -168,6 +171,10 @@
   border: none;
   padding: 0.6rem 2.5rem;
   white-space: nowrap;
+}
+.main-room .list-users .host-menu .button-start-game-inactive {
+  opacity: 0.2;
+  pointer-events: none;
 }
 .main-room .list-users .host-menu .settings {
   background-color: var(--c5);

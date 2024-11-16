@@ -68,9 +68,10 @@ io.on("connection", (socket) => {
   
     // Assign role based on the number of users in the room
     const role = room.length === 0 ? "host" : "guest";
-  
+    const isPlaying = role == "host" ? false : true;
+
     // Add the new user to the room
-    const user = { id: socket.id, name: newUserName, role };
+    const user = { id: socket.id, name: newUserName, role, isPlaying };
     room.push(user);
     socket.join(roomId);
 
@@ -117,7 +118,7 @@ io.on("connection", (socket) => {
     if (!room) return;
 
     const user = room.find((u) => u.id === socket.id);
-    if (user && !user.hasAnswered) {
+    if (user && !user.hasAnswered && user.isPlaying) {
       user.hasAnswered = true;
       user.selectedAnswer = answerIndex;
 
@@ -131,7 +132,7 @@ io.on("connection", (socket) => {
 
       // Count the number of users who have answered
       const answeredCount = room.filter((u) => u.hasAnswered).length;
-      const totalUsers = room.length;
+      const totalUsers = room.filter((u) => u.isPlaying).length;
 
       // Emit the number of users who have answered to all clients in the room
       io.to(roomId).emit("answerProgress", {
@@ -196,6 +197,21 @@ io.on("connection", (socket) => {
     if (changed == "gameTheme")
       changeTheme(room, roomId, newValue);
   });
+
+  // Handle toggling the 'isPlaying' status for a user
+  socket.on("toggleIsPlaying", ({ roomId, isPlaying }) => {
+    const room = rooms.get(roomId);
+    if (room) {
+      const user = room.find(u => u.id === socket.id);
+      if (user) {
+        user.isPlaying = isPlaying; // Set the user's isPlaying status
+
+        // Emit updated room users list to all clients
+        io.to(roomId).emit("roomUsers", room);
+      }
+    }
+  });
+
 
   // Handle leaving the room
   socket.on("leaveRoom", (roomId) => {
@@ -267,7 +283,7 @@ let sendQuestion = (room, roomId) => {
       answers: scrambledAnswers,
       time: room.timeForQuestion,
       timeForResult: room.timeForResult,
-      playerCount: room.length
+      playerCount: room.filter(user => user.isPlaying).length
     };
 
     room.forEach((u) => u.hasAnswered = false); // Reset answered status for players

@@ -161,6 +161,9 @@
                     padding: 0 1.0rem;
                 }
             }
+            .user-notPlaying {
+              opacity: 0.5;
+            }
         }
         .host-menu {
           width: fit-content;
@@ -178,6 +181,10 @@
               border: none;
               padding: 0.6rem 2.5rem;
               white-space: nowrap;
+          }
+          .button-start-game-inactive {
+            opacity: 0.2;
+            pointer-events: none;
           }
           .settings {
               background-color: var(--c5);
