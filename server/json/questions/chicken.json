@@ -1,32 +1,171 @@
 {
     "name": "Slepice",
     "questions": [
-        {
-            "question": "Jak prd?",
-            "answers": [
-                "ne prd",
-                "ano prd",
-                "hele možná prd"
-            ],
-            "correct": 0
-        },
-        {
-            "question": "Jak pšouk?",
-            "answers": [
-                "ano pšouk",
-                "ne pšouk"
-            ],
-            "correct": 0
-        },
-        {
-            "question": "Jak bobek?",
-            "answers": [
-                "vesmírný bobek",
-                "ano bobek",
-                "ne bobek",
-                "hele možná bobek"
-            ],
-            "correct": 0
-        }
+      {
+        "index": 0,
+        "question": "Kolik vajec průměrně snese slepice za týden?",
+        "answers": [
+          "6",
+          "1",
+          "3",
+          "10"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 1,
+        "question": "Co je to 'slepice nosnice'?",
+        "answers": [
+          "Slepice, která snáší vejce",
+          "Slepice, která nesnáší vejce",
+          "Slepice, která je starší než 5 let",
+          "Slepice, která běhá rychle"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 2,
+        "question": "Jak dlouho trvá inkubace slepičích vajec?",
+        "answers": [
+          "21 dní",
+          "14 dní",
+          "28 dní",
+          "35 dní"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 3,
+        "question": "Co je hlavní strava slepice?",
+        "answers": [
+          "Zrna a semena",
+          "Byliny",
+          "Hmyz",
+          "Ovoce"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 4,
+        "question": "Jaké barvy mohou být slepičí vejce?",
+        "answers": [
+          "Všechny uvedené",
+          "Bílé",
+          "Hnědé",
+          "Modré"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 5,
+        "question": "Jak se jmenuje samčí slepice?",
+        "answers": [
+          "Kohout",
+          "Husa",
+          "Slepák",
+          "Králík"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 6,
+        "question": "Kdy začíná slepice snášet vejce?",
+        "answers": [
+          "Po 6 měsících",
+          "Po 1 roce života",
+          "Po 3 měsících",
+          "Po 10 měsících"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 7,
+        "question": "Co znamená termín 'brojler'?",
+        "answers": [
+          "Slepice určená k produkci masa",
+          "Slepice určená k produkci vajec",
+          "Kříženec slepice a kachny",
+          "Slepice s neobvyklým peřím"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 8,
+        "question": "Jaké zvíře je známé jako přirozený predátor slepic?",
+        "answers": [
+          "Liška",
+          "Kočka",
+          "Pes",
+          "Myslivec"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 9,
+        "question": "Co je to 'slepice klecová'?",
+        "answers": [
+          "Slepice chovaná v malých klecích na farmě",
+          "Slepice žijící v přirozeném prostředí",
+          "Slepice chovaná ve voliéře",
+          "Slepice, která běhá volně po dvorku"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 10,
+        "question": "Jaký je věk, kdy slepice přestává snášet vejce?",
+        "answers": [
+          "3 roky",
+          "5 let",
+          "2 roky",
+          "10 let"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 11,
+        "question": "Jak se nazývá místo, kde slepice spí?",
+        "answers": [
+          "Kurník",
+          "Hnízdo",
+          "Hnízdiště",
+          "Zahrádka"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 12,
+        "question": "Co dává slepice na své vejce, aby je ochránila?",
+        "answers": [
+          "Vrstvu peří",
+          "Křídla",
+          "Náhodně pokrytí",
+          "Nic, vejce leží na hnízdě"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 13,
+        "question": "Jak se nazývá zvuk, který vydává slepice?",
+        "answers": [
+          "Kvočení",
+          "Kukání",
+          "Klování",
+          "Kokrhání"
+        ],
+        "correct": 0
+      },
+      {
+        "index": 14,
+        "question": "Co slepice dělá, když je v nebezpečí?",
+        "answers": [
+          "Vydává varovné zvuky",
+          "Utíká",
+          "Volá o pomoc",
+          "Schovává se"
+        ],
+        "correct": 0
+      }
     ]
-}
+  }
+  
