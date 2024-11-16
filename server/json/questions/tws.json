@@ -1,21 +1,144 @@
 {
-    "name": "TWS",
-    "questions": [
-        {
-            "question": "Jsou webovky supr?",
-            "answers": [
-                "rozhodně",
-                "ano"
-            ],
-            "correct": 0
-        },
-        {
-            "question": "Je JavaScript nejlepší",
-            "answers": [
-                "rozhodně",
-                "ne"
-            ],
-            "correct": 0
-        }
-    ]
+  "name": "TWS",
+  "questions": [
+      {
+          "question": "Co je npm?",
+          "answers": [
+              "Nástroj pro správu balíčků v JavaScriptu",
+              "Programovací jazyk",
+              "Framework pro vytváření webových aplikací"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "Co je Node.js?",
+          "answers": [
+              "JavaScriptový runtime pro serverové aplikace",
+              "Knihovna pro vytváření webových stránek",
+              "Textový editor pro programátory",
+              "Databázový systém"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "Co znamená termín frontend?",
+          "answers": [
+              "Část aplikace, která je viditelná pro uživatele",
+              "Databáze a zpracování dat",
+              "Programy běžící na serveru"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "K čemu slouží Docker?",
+          "answers": [
+              "Pro správu a nasazení kontejnerizovaných aplikací",
+              "Pro vytváření uživatelských rozhraní",
+              "Jako nástroj pro verzování kódu"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "Jaký je rozdíl mezi statickou a dynamickou webovou stránkou?",
+          "answers": [
+              "Statická stránka se nemění bez zásahu vývojáře, dynamická se mění podle uživatele nebo dat",
+              "Statická stránka používá databázi, dynamická ne",
+              "Dynamická stránka nemá žádný backend"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "Co je React?",
+          "answers": [
+              "Knihovna pro tvorbu uživatelských rozhraní v JavaScriptu",
+              "Webový server pro hostování aplikací",
+              "Editor pro psaní kódu",
+              "Programovací jazyk"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "Co znamená verzování v Git?",
+          "answers": [
+              "Sledování a správa změn v kódu",
+              "Nahrávání souborů na server",
+              "Vytváření uživatelských rozhraní"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "K čemu slouží GitHub?",
+          "answers": [
+              "Platforma pro hosting a správu repozitářů",
+              "Editor pro kódování",
+              "Nástroj pro správu databází"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "Co je backend?",
+          "answers": [
+              "Část aplikace, která běží na serveru a zpracovává data",
+              "Uživatelské rozhraní aplikace",
+              "Jazyk používaný pro frontend"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "Co znamená termín 'hosting'?",
+          "answers": [
+              "Služba pro umístění webových stránek na server",
+              "Programování backendových funkcí",
+              "Zpracování dat ve frontendové aplikaci"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "Jaký je hlavní rozdíl mezi serverem a klientem?",
+          "answers": [
+              "Server poskytuje služby a data, klient je přijímá a zobrazuje",
+              "Klient poskytuje služby a server je přijímá",
+              "Server slouží pouze k ukládání dat"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "Který z následujících jazyků se běžně používá pro frontend vývoj?",
+          "answers": [
+              "JavaScript",
+              "Python",
+              "C++",
+              "SQL"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "Jaký je účel CI/CD (Continuous Integration/Continuous Deployment)?",
+          "answers": [
+              "Automatizace a zrychlení procesu nasazení aplikací",
+              "Sledování uživatelských statistik",
+              "Analýza dat v databázi"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "Co je to statická stránka?",
+          "answers": [
+              "Stránka s obsahem, který se nemění podle uživatele",
+              "Stránka, která interaguje s databází",
+              "Stránka generovaná serverem v reálném čase"
+          ],
+          "correct": 0
+      },
+      {
+          "question": "Jaký nástroj byste použili pro správu kontejnerů?",
+          "answers": [
+              "Docker",
+              "Node.js",
+              "NPM",
+              "React"
+          ],
+          "correct": 0
+      }
+  ]
 }

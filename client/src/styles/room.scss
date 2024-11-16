@@ -386,6 +386,9 @@
         cursor: pointer;
         transition: .12s;
 
+        span {
+          text-align: start;
+        }
         i {
           font-size: 1.5em;
         }

@@ -366,6 +366,9 @@
   cursor: pointer;
   transition: 0.12s;
 }
+.main-game .answers .ans span {
+  text-align: start;
+}
 .main-game .answers .ans i {
   font-size: 1.5em;
 }
