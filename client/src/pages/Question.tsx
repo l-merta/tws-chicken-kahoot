@@ -4,6 +4,10 @@ import socket from './../components/socket';
 
 interface QuestionProps {
   question: {
+    index: number;
+    theme: string;
+    currentQuestion: number;
+    totalQuestions: number;
     question: string;
     answers: Array<String>;
     time: number;
@@ -18,6 +22,8 @@ interface AnswerCount {
 }
 
 const Question: React.FC<QuestionProps> = ({ question, handleLeave }) => {
+  const apiUrl = import.meta.env.VITE_SERVER_URL;
+
   const {roomId} = useParams<{ roomId: string }>();
   const [questionData, setQuestionData] = useState<any>(question);
   const [timeLeft, setTimeLeft] = useState<number>(question.time);
@@ -43,7 +49,6 @@ const Question: React.FC<QuestionProps> = ({ question, handleLeave }) => {
   useEffect(() => {
     //
     socket.on("question", (question: any) => {
-      console.log("question in Question.tsx")
       setQuestionData(question);
       setTimeLeft(question.time);
       setAnswerCount({
@@ -62,7 +67,6 @@ const Question: React.FC<QuestionProps> = ({ question, handleLeave }) => {
     });
     // Listen for the result from the server
     socket.on("answerProgress", (data: any) => {
-      console.log(data);
       setAnswerCount(data);
     });
 
@@ -86,9 +90,9 @@ const Question: React.FC<QuestionProps> = ({ question, handleLeave }) => {
             <span className="question">{questionData.question}</span>
           </div>
           <div className="question-info">
-            {/* <span className="question-count">5 / 10</span> */}
+            <span className="question-count">{questionData.currentQuestion} / {questionData.totalQuestions}</span>
             <span className="question-time-count">{timeLeft}</span> {/* Countdown timer */}
-            <img src="https://unsplash.it/1920/1080" alt="Obrázek k otázce" />
+            <img src={apiUrl + "api/questions/images/"+questionData.theme+"/"+questionData.index} alt="Obrázek k otázce" />
             <div className="answers-count">
               <span className="count">{answerCount.answeredCount} / {answerCount.totalUsers}</span>
               <span className="text">Odpovědí</span>

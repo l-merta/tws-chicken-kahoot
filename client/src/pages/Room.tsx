@@ -20,6 +20,10 @@ interface ErrorProps {
   message: string;
 }
 interface QuestionProps {
+  index: number;
+  theme: string;
+  currentQuestion: number;
+  totalQuestions: number;
   question: string;
   answers: Array<String>;
   time: number;
@@ -71,14 +75,11 @@ const Room: React.FC = () => {
 
       
       socket.on("gameTheme", (data: any) => {
-        console.log(data);
         setGameTheme(data);
-        console.log(totalQuestionsRef.current);
-        if (totalQuestionsRef.current && totalQuestionsRef.current.value > data.maxQuestions)
+        if (totalQuestionsRef.current)
           totalQuestionsRef.current.value = data.maxQuestions;
       });
       socket.on("question", (question: QuestionProps) => {
-        console.log("question in Room.tsx")
         setLoadedQuestion(question);
         //setLoadedQuestionResult(null);
       });

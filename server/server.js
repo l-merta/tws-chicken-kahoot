@@ -11,6 +11,10 @@ const PORT = process.env.PORT || 5200;
 app.use(cors());
 app.use(express.static("public"));
 
+app.get("/api/questions/images/:theme/:id", (req, res) => {
+  const { theme, id } = req.params;
+  res.sendFile(__dirname + `/images/questions/${theme}/${id}.png`);
+});
 // Serve the main HTML file
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
@@ -255,6 +259,10 @@ let sendQuestion = (room, roomId) => {
     room.correctAnswerIndex = scrambledAnswers.indexOf(correctAnswer);
 
     const questionToSend = {
+      index: question.index,
+      theme: room.theme,
+      currentQuestion: room.currentQuestionIndex+1,
+      totalQuestions: room.totalQuestions,
       question: question.question,
       answers: scrambledAnswers,
       time: room.timeForQuestion,
@@ -308,15 +316,13 @@ let changeTheme = (room, roomId, themeName) => {
   });
 
   // Load questions for the selected theme
-  const questionFile = JSON.parse(fs.readFileSync(path.join(__dirname, 'json/questions', themeName + '.json'), 'utf-8'));
+  const questionFile = JSON.parse(fs.readFileSync(path.join(__dirname, 'json/questions/', themeName + '.json'), 'utf-8'));
 
   room.theme = themeName;
   room.themeDisplayName = questionFile.name;
   room.shuffledQuestions = questionFile.questions.sort(() => Math.random() - 0.5);
   room.maxQuestions = questionFile.questions.length;
-  room.totalQuestions = (!room.totalQuestions || room.totalQuestions > questionFile.questions.length) && questionFile.questions.length >= 12
-    ? 12
-    : questionFile.questions.length;
+  room.totalQuestions = questionFile.questions.length;//(!room.totalQuestions || room.totalQuestions > questionFile.questions.length) && questionFile.questions.length >= 12 ? 12 : questionFile.questions.length;
 
   // Include the array of question names when sending theme data
   room.availableThemes = questionNames;

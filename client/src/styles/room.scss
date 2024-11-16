@@ -332,10 +332,19 @@
       .question-info {
         height: 100%;
         padding: 1vw;
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
         
+        .question-count {
+          opacity: 0.6;
+          color: var(--c1);
+          font: 400 1.4rem var(--f1);
+          position: absolute;
+          top: 1vw;
+          left: 1vw;
+        }
         .question-time-count {
           color: var(--c2);
           background-color: var(--c6);
