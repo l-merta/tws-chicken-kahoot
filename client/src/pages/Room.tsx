@@ -70,7 +70,6 @@ const Room: React.FC = () => {
         setUsers(updatedUsers);
       });
       socket.on("roleAssigned", (role: "host" | "guest") => {
-        console.log(role);
         setIsHost(role === "host");
       });
       
@@ -78,7 +77,6 @@ const Room: React.FC = () => {
         setLoadedQuestion(question);
       });
       socket.on("gameTheme", (data: any) => {
-        console.log(data);
         setGameTheme(data);
         if (totalQuestionsRef.current)
           totalQuestionsRef.current.value = data.maxQuestions;
@@ -145,16 +143,26 @@ const Room: React.FC = () => {
   };
   const handleSettingsChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name } = e.target;
-
-    if (name == "totalQuestions") {
-      if (parseInt(e.target.value) < 1)
-        e.target.value = "1";
-      else if (parseInt(e.target.value) > gameTheme.maxQuestions)
-        e.target.value = gameTheme.maxQuestions;
+    let { value } = e.target;
+  
+    if (name === "totalQuestions") {
+      // Ensure the value is a number and handle empty or invalid input
+      if (value.trim() === '' || isNaN(Number(value))) {
+        value = gameTheme.maxQuestions.toString();
+        e.target.value = value; // Update the input field visually
+      } else {
+        const numericValue = parseInt(value);
+        if (numericValue < 1) {
+          value = "1";
+          e.target.value = value;
+        } else if (numericValue > gameTheme.maxQuestions) {
+          value = gameTheme.maxQuestions.toString();
+          e.target.value = value;
+        }
+      }
     }
-
-    const { value } = e.target;
-    const newValue = value; //type === 'checkbox' ? checked : value;
+  
+    const newValue = value;
   
     // Update the gameTheme state (if needed)
     setGameTheme((prevTheme: any) => ({
@@ -163,7 +171,7 @@ const Room: React.FC = () => {
     }));
   
     // Emit the change to the server
-    socket.emit('changeTheme', { roomId, changed: name, newValue: newValue });
+    socket.emit('changeTheme', { roomId, changed: name, newValue });
   };
   const handleUserPlayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newIsPlaying = e.target.checked;
