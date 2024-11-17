@@ -76,6 +76,7 @@ const Room: React.FC = () => {
         setLoadedQuestion(question);
       });
       socket.on("gameTheme", (data: any) => {
+        console.log(data);
         setGameTheme(data);
         if (totalQuestionsRef.current)
           totalQuestionsRef.current.value = data.maxQuestions;
