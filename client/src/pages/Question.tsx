@@ -72,14 +72,16 @@ const Question: React.FC<QuestionProps> = ({ question, handleLeave }) => {
     });
 
     return () => {
+      socket.off("question");
       socket.off("questionResult");
+      socket.off("answerProgress");
     };
   }, []);
 
   const handleAnswerClick = (index: number) => {
     if (selectedAnswer !== null) return; // Prevent multiple selections
     setSelectedAnswer(index);
-    socket.emit("submitAnswer", { roomId: roomId, answerIndex: index }); // Replace with actual room ID
+    socket.emit("submitAnswer", { roomId: roomId, answerIndex: index, timeLeft: timeLeft });
   };
 
   return (

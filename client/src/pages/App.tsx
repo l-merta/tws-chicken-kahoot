@@ -18,7 +18,7 @@ const App: React.FC = () => (
         <div className="links">
           <div className="links-2">
             <Link to="/join" className="link-kahoot">Připojit se do hry</Link>
-            <Link to="/create" className="link-kahoot">Vytvořit hru</Link>
+            <Link to="/create" className="link-kahoot link-kahoot-create">Vytvořit hru</Link>
           </div>
           <a href="#text" className="link-basic">Přečíst si více o slepicích</a>
         </div>

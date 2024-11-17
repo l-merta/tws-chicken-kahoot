@@ -162,6 +162,9 @@ main .s2 img {
   main .links-2 .link-kahoot {
     font-size: 0.6rem !important;
   }
+  main .links-2 .link-kahoot-create {
+    display: none;
+  }
   main .link-basic {
     font-size: 0.6rem;
   }

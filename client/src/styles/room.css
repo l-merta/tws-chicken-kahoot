@@ -418,6 +418,41 @@
   pointer-events: none;
 }
 
+.main-gameEnd .list-users-points {
+  width: 30rem;
+  max-width: 95%;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+}
+.main-gameEnd .list-users-points tr {
+  background-color: var(--c6);
+}
+.main-gameEnd .list-users-points tr td {
+  padding: 0.5rem 0;
+}
+.main-gameEnd .list-users-points tr .index {
+  font: 600 1.5rem var(--f1);
+  width: 3rem;
+  text-align: center;
+}
+.main-gameEnd .list-users-points tr .name {
+  font: 500 1rem var(--f1);
+  border-left: 1px solid var(--c5);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.main-gameEnd .list-users-points tr .name img {
+  height: 2rem;
+  border-radius: 3rem;
+}
+.main-gameEnd .list-users-points tr .points {
+  font: 500 1rem var(--f1);
+  border-left: 1px solid var(--c5);
+  padding: 0.5rem 1.5rem;
+}
+
 .main-error {
   display: flex;
   flex-direction: column;
@@ -442,6 +477,21 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .main-room h2 .code-cont {
+    width: 100%;
+    margin-top: 2.8rem;
+  }
+  .main-room h2 .code-cont .qr-code {
+    display: none;
+  }
+  .main-room .list-users .host-menu {
+    display: none;
+  }
+  .main-join h2 span,
+  .main-gameEnd h2 span {
+    margin-top: 3rem;
+    margin-bottom: 0.5rem;
+  }
   .question-vp {
     display: none !important;
   }

@@ -13,7 +13,7 @@ const Join: React.FC = () => {
   };
 
   return (
-    <div className="main-room">
+    <div className="main-room main-join">
       <h2>
         <button onClick={() => navigate("/")}>Zpět</button>
         <span>Připojit se do hry</span>

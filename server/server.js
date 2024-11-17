@@ -97,7 +97,7 @@ io.on("connection", (socket) => {
       if (user && user.role === "host") {
         room.gameStarted = true;
         room.currentQuestionIndex = 0;
-        room.timeForQuestion = 5; // Set time for each question
+        room.timeForQuestion = 40; // Set time for each question
         room.timeForResult = 2; // Time for showing the result
 
         // Shuffle questions randomly before starting the game
@@ -112,8 +112,21 @@ io.on("connection", (socket) => {
     }
   });
 
+  // Respond to the client request for game results
+  socket.on("getGameResults", (roomId) => {
+    const room = rooms.get(roomId);
+    if (room) {
+      // Send the list of players with their points
+      io.to(socket.id).emit("gameResults", room.map(player => ({
+        name: player.name,
+        isPlaying: player.isPlaying,
+        points: player.points
+      })));
+    }
+  });
+
   // Handle answer submission
-  socket.on("submitAnswer", ({ roomId, answerIndex }) => {
+  socket.on("submitAnswer", ({ roomId, answerIndex, timeLeft }) => {
     const room = rooms.get(roomId);
     if (!room) return;
 
@@ -125,7 +138,17 @@ io.on("connection", (socket) => {
       // Check if the answer is correct
       if (answerIndex === room.correctAnswerIndex) {
         console.log(`User ${user.name} got the correct answer`);
-        user.points = (user.points || 0) + 10; // Award points
+        
+        // Base points for correct answer
+        let points = 10;
+        
+        // Calculate bonus points based on time left
+        const timeBonus = Math.round((timeLeft / room.timeForQuestion) * 10); // 10% of time left
+        points += timeBonus;
+        
+        user.points = (user.points || 0) + points; // Award total points
+
+        console.log(`User ${user.name} received ${points} points (including ${timeBonus} time bonus)`);
       } else {
         console.log(`User ${user.name} got the wrong answer`);
       }
@@ -155,7 +178,7 @@ io.on("connection", (socket) => {
         // Send the next question after room.timeForResult seconds
         setTimeout(() => {
           if (room.currentQuestionIndex < room.totalQuestions) {
-            console.log("sending another question");
+            console.log("Sending another question");
             room.currentQuestionIndex++;
             sendQuestion(room, roomId);
           }
@@ -211,7 +234,6 @@ io.on("connection", (socket) => {
       }
     }
   });
-
 
   // Handle leaving the room
   socket.on("leaveRoom", (roomId) => {

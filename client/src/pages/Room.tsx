@@ -65,56 +65,38 @@ const Room: React.FC = () => {
       socket.on("error", (error: ErrorProps) => {
         setError(error);
       });
-
       socket.on("roomUsers", (updatedUsers: UserProps[]) => {
         setUsers(updatedUsers);
       });
-
       socket.on("roleAssigned", (role: "host" | "guest") => {
         setIsHost(role === "host");
       });
-
       
+      socket.on("question", (question: QuestionProps) => {
+        setLoadedQuestion(question);
+      });
       socket.on("gameTheme", (data: any) => {
         setGameTheme(data);
         if (totalQuestionsRef.current)
           totalQuestionsRef.current.value = data.maxQuestions;
       });
-      socket.on("question", (question: QuestionProps) => {
-        setLoadedQuestion(question);
-        //setLoadedQuestionResult(null);
-      });
-      /*
-      socket.on("questionResult", (result: QuestionResultProps) => {
-        //console.log(result)
-        setLoadedQuestion(null);
-        //setLoadedQuestionResult(result);
-      });
-      */
-      socket.on("gameEnd", () => {
-        //console.log(message)
-        setLoadedQuestion(null);
-        //setLoadedQuestionResult(null);
-        setLoadedGameEnded(true);
-      });
-
-      /*
-      socket.on("hostLeft", (message: string) => {
-        setHostLeftMessage(message);
-      }); */
-
       socket.on("gameState", (state: { gameStarted: boolean }) => {
-        //console.log(state);
         setGameStarted(state.gameStarted);
+      });
+      socket.on("gameEnd", () => {
+        setLoadedQuestion(null);
+        setLoadedGameEnded(true);
       });
 
       return () => {
         socket.emit("leaveRoom", roomId);
+        socket.off("error");
         socket.off("roomUsers");
         socket.off("roleAssigned");
-        //socket.off("hostLeft");
-        socket.off("error");
+        socket.off("question");
+        socket.off("gameTheme");
         socket.off("gameState");
+        socket.off("gameEnd");
       };
     }
   }, [roomId]);
@@ -274,7 +256,7 @@ const Room: React.FC = () => {
   }
   else {
     if (question) {return (<Question question={question} handleLeave={handleLeave}/>)}
-    else if (gameEnded) {return (<GameResult handleLeave={handleLeave}/>)}
+    else if (gameEnded) {return (<GameResult roomId={roomId} handleLeave={handleLeave}/>)}
     {/* else if (questionResult) { return (<QuestionResult questionResult={questionResult} handleLeave={handleLeave}/>)} */}
   }
 };
