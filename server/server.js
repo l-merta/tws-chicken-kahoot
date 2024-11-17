@@ -84,7 +84,7 @@ io.on("connection", (socket) => {
   
     // Emit updated user list and role assignment
     io.to(roomId).emit("roomUsers", room);
-    socket.emit("roleAssigned", role);
+    io.to(roomId).emit("roleAssigned", role);
   
     console.log(`User ${socket.id} joined room ${roomId} as ${role} with name ${newUserName}`);
   });
@@ -379,7 +379,7 @@ let sendTheme = (room, roomId) => {
     availableThemes: room.availableThemes
   }
 
-  console.log(roomThemeData + " to room " + roomId);
+  console.log(roomThemeData + " to room " + roomId + " avThemes: " + roomThemeData.availableThemes);
   io.to(roomId).emit("gameTheme", roomThemeData);
 }
 
