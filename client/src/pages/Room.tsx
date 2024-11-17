@@ -69,6 +69,7 @@ const Room: React.FC = () => {
         setUsers(updatedUsers);
       });
       socket.on("roleAssigned", (role: "host" | "guest") => {
+        console.log(role);
         setIsHost(role === "host");
       });
       

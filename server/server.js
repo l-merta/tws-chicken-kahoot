@@ -84,7 +84,7 @@ io.on("connection", (socket) => {
   
     // Emit updated user list and role assignment
     io.to(roomId).emit("roomUsers", room);
-    io.to(roomId).emit("roleAssigned", role);
+    socket.emit("roleAssigned", role);
   
     console.log(`User ${socket.id} joined room ${roomId} as ${role} with name ${newUserName}`);
   });
