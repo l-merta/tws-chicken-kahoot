@@ -39,6 +39,7 @@ interface QuestionResultProps {
 */
 
 const Room: React.FC = () => {
+  const apiUrl = import.meta.env.VITE_SERVER_URL;
   const { roomId } = useParams<{ roomId: string }>();
   const navigate = useNavigate();
   const [users, setUsers] = useState<UserProps[]>([]);
@@ -198,7 +199,7 @@ const Room: React.FC = () => {
               <span className="code">{roomId}</span>
             </div>
             <div className="s2">
-              <QRCodeSVG className="qr-code" onClick={()=>{setQrCodeLarge(prev => !prev)}} value={window.location.href} />
+              <QRCodeSVG className="qr-code" onClick={()=>{setQrCodeLarge(prev => !prev)}} value={apiUrl + "join"} />
             </div>
           </span>
         </h2>

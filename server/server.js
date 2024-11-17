@@ -357,7 +357,14 @@ let changeTheme = (room, roomId, themeName) => {
   });
 
   // Load questions for the selected theme
-  const questionFile = JSON.parse(fs.readFileSync(path.join(__dirname, 'json/questions/', themeName + '.json'), 'utf-8'));
+  let questionFile;
+  try {
+    questionFile = JSON.parse(fs.readFileSync(path.join(__dirname, 'json/questions/', themeName + '.json'), 'utf-8'));
+  }
+  catch(e) {
+    questionFile = JSON.parse(fs.readFileSync(path.join(__dirname, 'json/questions/chicken.json'), 'utf-8'));
+  }
+  
 
   room.theme = themeName;
   room.themeDisplayName = questionFile.name;
