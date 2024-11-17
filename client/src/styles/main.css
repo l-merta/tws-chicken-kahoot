@@ -121,7 +121,7 @@ main .s2 img {
 
 section {
   width: 90rem;
-  max-width: calc(100% - 4rem);
+  max-width: calc(100% - 10vw);
   margin: 0 auto;
   margin-bottom: 8rem;
   display: flex;
@@ -132,6 +132,7 @@ section {
 section img {
   aspect-ratio: 16/9;
   width: 20rem;
+  max-width: 100%;
   border-radius: 0.3rem;
   -o-object-fit: cover;
      object-fit: cover;
@@ -157,6 +158,12 @@ section .text p {
   align-items: center;
 }
 
+@media only screen and (max-width: 700px) {
+  section {
+    flex-wrap: wrap;
+    margin-bottom: 5rem;
+  }
+}
 @media only screen and (max-width: 600px) {
   main {
     height: -moz-fit-content !important;
