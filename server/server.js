@@ -287,6 +287,9 @@ io.on("connection", (socket) => {
 });
 
 let sendQuestion = (room, roomId) => {
+  if(!room.shuffledQuestions) 
+    changeTheme(room, roomId, room.theme);
+
   if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < room.shuffledQuestions.length) {
     const question = room.shuffledQuestions[room.currentQuestionIndex];
 
