@@ -1,3 +1,6 @@
+html {
+    scroll-behavior: smooth;
+}
 body {
     color: var(--c2);
     background: rgb(36,20,45);
@@ -8,6 +11,7 @@ main {
     height: 80vh !important;
     min-height: 25rem;
     height: fit-content;
+    margin-bottom: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,6 +118,33 @@ main {
             height: 100%;
             border-radius: 0.5rem;
             object-fit: cover;
+        }
+    }
+}
+section {
+    width: 90rem;
+    max-width: calc(100% - 4rem);
+    margin: 0 auto;
+    margin-bottom: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 2rem;
+
+    img {
+        aspect-ratio: 16/9;
+        width: 20rem;
+        border-radius: 0.3rem;
+        object-fit: cover;
+    }
+    .text {
+        h2 {
+            font: 600 2.0rem var(--f2);
+            margin-top: 0;
+        }
+        p {
+            font: 300 1.2rem var(--f1);
+            line-height: 1.4rem;
         }
     }
 }
