@@ -97,7 +97,7 @@ io.on("connection", (socket) => {
       if (user && user.role === "host") {
         room.gameStarted = true;
         room.currentQuestionIndex = 0;
-        room.timeForQuestion = 60; // Set time for each question
+        room.timeForQuestion = 5; // Set time for each question
         room.timeForResult = 2; // Time for showing the result
 
         // Shuffle questions randomly before starting the game

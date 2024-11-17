@@ -54,7 +54,8 @@ const Question: React.FC<QuestionProps> = ({ question, handleLeave }) => {
       setAnswerCount({
         answeredCount: 0,
         totalUsers: question.playerCount
-      })
+      });
+      setSelectedAnswer(null);
     });
     // Listen for the result from the server
     socket.on("questionResult", (data) => {
@@ -99,7 +100,7 @@ const Question: React.FC<QuestionProps> = ({ question, handleLeave }) => {
             </div>
           </div>
         </div>
-        <div className={"answers " + (questionData.answers.length <= 2 ? "answers-2" : "")}>
+        <div className={"answers " + (questionData.answers.length <= 2 ? "answers-2 " : " ") + (correctAnswerIndex === null && selectedAnswer !== null ? "answers-inactive " : " ") + (correctAnswerIndex !== null ? "answers-inactive-2 " : " ")}>
           {questionData.answers.map((answer: string, index: number) => (
             <button
               key={index}

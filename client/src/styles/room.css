@@ -410,6 +410,13 @@
   background-color: gray;
   opacity: 0.4;
 }
+.main-game .answers-inactive {
+  opacity: 0.65;
+  pointer-events: none;
+}
+.main-game .answers-inactive-2 {
+  pointer-events: none;
+}
 
 .main-error {
   display: flex;

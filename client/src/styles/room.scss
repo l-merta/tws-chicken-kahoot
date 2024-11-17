@@ -432,6 +432,13 @@
         opacity: 0.4;
       }
     }
+    .answers-inactive {
+      opacity: 0.65;
+      pointer-events: none;
+    }
+    .answers-inactive-2 {
+      pointer-events: none;
+    }
 }
 .main-error {
     display: flex;
