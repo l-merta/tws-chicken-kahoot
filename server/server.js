@@ -363,9 +363,9 @@ let changeTheme = (room, roomId, themeName) => {
   room.themeDisplayName = questionFile.name;
   room.shuffledQuestions = questionFile.questions.sort(() => Math.random() - 0.5);
   room.maxQuestions = questionFile.questions.length;
-  room.totalQuestions = questionFile.questions.length;//(!room.totalQuestions || room.totalQuestions > questionFile.questions.length) && questionFile.questions.length >= 12 ? 12 : questionFile.questions.length;
-
-  // Include the array of question names when sending theme data
+  room.totalQuestions = questionFile.questions.length;
+  
+  console.log("availableThemes: ", questionNames.length);
   room.availableThemes = questionNames;
 
   sendTheme(room, roomId);
