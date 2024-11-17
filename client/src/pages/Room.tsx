@@ -220,7 +220,13 @@ const Room: React.FC = () => {
               <button className={"button-start-game " + (users.filter(user => user.isPlaying).length == 0 ? "button-start-game-inactive" : "")} onClick={startGame}>Spustit hru</button>
               <div className="settings">
                 <div className="item">
-                  <span>Zúčastnit se</span>
+                  <span>
+                    <div className="hint">
+                      <div className="icon">?</div>
+                      <p className="text">Host by se neměl zúčastnit hry, pokud některý z hráčů hraje na mobilu - koukají k hostovi na otázky / odpovědi</p>
+                    </div>
+                    Zúčastnit se
+                  </span>
                   <input type="checkbox" name="hostPlay" id="hostPlay" value={users.filter(user => user.role == "host")[0].isPlaying ? "true" : "false"} onChange={handleUserPlayChange} />
                 </div>
                 <div className="item">
