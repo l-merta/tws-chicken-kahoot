@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/room(/.*)?$
+RewriteRule ^ /join/ [R=302,L]

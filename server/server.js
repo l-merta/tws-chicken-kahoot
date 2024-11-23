@@ -287,6 +287,9 @@ io.on("connection", (socket) => {
 });
 
 let sendQuestion = (room, roomId) => {
+  if(!room.shuffledQuestions) 
+    changeTheme(room, roomId, room.theme);
+
   if (room.currentQuestionIndex < room.totalQuestions && room.currentQuestionIndex < room.shuffledQuestions.length) {
     const question = room.shuffledQuestions[room.currentQuestionIndex];
 
@@ -354,15 +357,22 @@ let changeTheme = (room, roomId, themeName) => {
   });
 
   // Load questions for the selected theme
-  const questionFile = JSON.parse(fs.readFileSync(path.join(__dirname, 'json/questions/', themeName + '.json'), 'utf-8'));
+  let questionFile;
+  try {
+    questionFile = JSON.parse(fs.readFileSync(path.join(__dirname, 'json/questions/', themeName + '.json'), 'utf-8'));
+  }
+  catch(e) {
+    questionFile = JSON.parse(fs.readFileSync(path.join(__dirname, 'json/questions/chicken.json'), 'utf-8'));
+  }
+  
 
   room.theme = themeName;
   room.themeDisplayName = questionFile.name;
   room.shuffledQuestions = questionFile.questions.sort(() => Math.random() - 0.5);
   room.maxQuestions = questionFile.questions.length;
-  room.totalQuestions = questionFile.questions.length;//(!room.totalQuestions || room.totalQuestions > questionFile.questions.length) && questionFile.questions.length >= 12 ? 12 : questionFile.questions.length;
-
-  // Include the array of question names when sending theme data
+  room.totalQuestions = questionFile.questions.length;
+  
+  console.log("availableThemes: ", questionNames.length);
   room.availableThemes = questionNames;
 
   sendTheme(room, roomId);
@@ -376,7 +386,7 @@ let sendTheme = (room, roomId) => {
     availableThemes: room.availableThemes
   }
 
-  console.log(roomThemeData + " to room " + roomId);
+  console.log(roomThemeData + " to room " + roomId + " avThemes: " + roomThemeData.availableThemes);
   io.to(roomId).emit("gameTheme", roomThemeData);
 }
 
