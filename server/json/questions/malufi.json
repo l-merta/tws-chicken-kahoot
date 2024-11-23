@@ -1,0 +1,385 @@
+{
+  "name": "Malufi Ultimate Brainrot 3.0",
+  "questions": [
+    {
+      "index": 0,
+      "question": "Co děda Fanda říká, když chce mít klid? 👴",
+      "answers": [
+        "'Vlez mi na záda!'",
+        "'Jdi se vyprdět!'"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 1,
+      "question": "Jak babi Maru přemlouvá lidi, aby jedli její domácí cukety? 👵",
+      "answers": [
+        "'Radostovi by to snědli!'",
+        "'Chceš vědět tajemství Pepek Kunešů?'",
+        "'Tahle cuketa ti změní život!'"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 2,
+      "question": "Co je Mango podle legend Malufi? 🥭",
+      "answers": [
+        "Fruit of gods",
+        "Jediná věc, co LoLo nesnáší",
+        "Základní složka rizz party"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 3,
+      "question": "Kdo je Pepek Kunešů? 🕵️",
+      "answers": [
+        "Legendární postava, o které nikdo nic neví",
+        "Nový charakter z TikTok rizz party"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 4,
+      "question": "Jaké je heslo Mateho? 🛌",
+      "answers": [
+        "'Radši mango než práce!'",
+        "'Klid je klíčem k úspěchu.'",
+        "'Proč dělat dnes, když to jde odložit?'"
+      ],
+      "correct": 2
+    },
+    {
+      "index": 5,
+      "question": "LoLo jako inženýr věří, že vše lze vyřešit: ⚙️",
+      "answers": [
+        "Šroubovákem a mangem",
+        "Troškou rizz party"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 6,
+      "question": "Radostovi na své cestě zažili: 🌍",
+      "answers": [
+        "Zápas s aligátorem",
+        "Veganskou party na Islandu",
+        "Šok z ceny cuket v Grónsku"
+      ],
+      "correct": 2
+    },
+    {
+      "index": 7,
+      "question": "Filip z Radostových je známý jako: 👦",
+      "answers": [
+        "Jouda, co všechno poplete",
+        "Místní rizz party král"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 8,
+      "question": "Chill Guy se objeví: 😎",
+      "answers": [
+        "Když všichni zpanikaří",
+        "Na každé TikTok rizz party"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 9,
+      "question": "Pani Pytlíková říká: 🧙",
+      "answers": [
+        "'HTML je jazyk bohů!'",
+        "'Tohle není rizz party!'"
+      ],
+      "correct": 1
+    },
+    {
+      "index": 10,
+      "question": "Mateho oblíbená aktivita je: 🛌",
+      "answers": [
+        "Ležet a nic nedělat",
+        "Jíst mango v klidu",
+        "Ztratit se na TikToku"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 11,
+      "question": "TikTok rizz party je: 🎉",
+      "answers": [
+        "Místo, kde vznikl brainrot",
+        "LoLo tam našel inspiraci",
+        "Děda Fanda říká, že je to peklo"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 12,
+      "question": "Jak Radostovi slaví narozeniny? 🎂",
+      "answers": [
+        "Cuketovou party",
+        "Avokádovým bramborákem"
+      ],
+      "correct": 1
+    },
+    {
+      "index": 13,
+      "question": "Co děda Fanda říká, když chce jít domů? 👴",
+      "answers": [
+        "'Jdi se vyprdět!'",
+        "'Chceš vědět tajemství Pepek Kunešů?'"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 14,
+      "question": "LoLo jednou vynalezl: ⚙️",
+      "answers": [
+        "Skibidi mango generátor",
+        "Věčný kódovací stroj"
+      ],
+      "correct": 1
+    },
+    {
+      "index": 15,
+      "question": "Co Filip přinesl na rodinnou večeři? 👦",
+      "answers": [
+        "5 kilo cuket",
+        "Nápad na nový TikTok trend",
+        "Špatnou náladu a chaos"
+      ],
+      "correct": 2
+    },
+    {
+      "index": 16,
+      "question": "Jak Pepek Kunešů zmizel? 🕵️",
+      "answers": [
+        "Nikdo neví, to je ta legenda",
+        "Odletěl s Radostovými na Island"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 17,
+      "question": "Jaký byl důvod posledního rizz party brainrotu? 🎉",
+      "answers": [
+        "Nedostatek mang",
+        "Chill Guy usnul",
+        "Děda Fanda přišel a zrušil party"
+      ],
+      "correct": 1
+    },
+    {
+      "index": 18,
+      "question": "Co LoLo říká o cuketách? ⚙️",
+      "answers": [
+        "'Mango je lepší.'",
+        "'Radši budu debugovat.'"
+      ],
+      "correct": 1
+    },
+    {
+      "index": 19,
+      "question": "Co je ultimátní zdravá snídaně podle Radostových? 🥑",
+      "answers": [
+        "Cuketa s datlovým sirupem",
+        "Šmakoun na grilu"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 20,
+      "question": "Pepek Kunešů je známý jako: 🕵️",
+      "answers": [
+        "Tajemná legenda",
+        "TikTok hvězda"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 21,
+      "question": "Proč Filip zmeškal rizz party? 👦",
+      "answers": [
+        "Poplete všechno, co může",
+        "Mate mu zakázal přijít"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 22,
+      "question": "Jak Radostovi vaří na cestách? 🌍",
+      "answers": [
+        "Zdravě a vegansky",
+        "S mangem na každém rohu"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 23,
+      "question": "Co děda Fanda říká o brainrotu? 👴",
+      "answers": [
+        "'To už je moc!'",
+        "'To je rizz party klasik!'"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 24,
+      "question": "Jaká je oblíbená činnost babi Maru? 👵",
+      "answers": [
+        "Pěstovat cukety",
+        "Vyprávět příběhy o Radostových"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 25,
+      "question": "Kdo objevil Pepek Kunešů naposled? 🕵️",
+      "answers": [
+        "Nikdo. Pořád je tajemstvím.",
+        "LoLo na rizz party."
+      ],
+      "correct": 0
+    },
+    {
+      "index": 26,
+      "question": "Jaké heslo má Mate na vizitce? 🛌",
+      "answers": [
+        "'Klid a mango.'",
+        "'Dělám jen to, co musím.'"
+      ],
+      "correct": 1
+    },
+    {
+      "index": 27,
+      "question": "Co se stalo na posledním TikTok trendu? 🎉",
+      "answers": [
+        "Filip tam způsobil chaos.",
+        "Děda Fanda zrušil party.",
+        "Mate prostě spal."
+      ]
+    },
+    {
+      "index": 28,
+      "question": "Filip jednou přivezl Radostovým: 👦",
+      "answers": [
+        "Hromadu špatných nápadů",
+        "3 kila cuket",
+        "Rizz party inspiraci"
+      ],
+      "correct": 1
+    },
+    {
+      "index": 29,
+      "question": "Co je ultimátní zdravá snídaně podle Radostových? 🥑",
+      "answers": [
+        "Cuketa s avokádem a datlovým sirupem",
+        "Pytlíkový čaj a gumoví medvídci",
+        "Šmakoun na grilu"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 30,
+      "question": "Chill Guyova nejoblíbenější aktivita: 😎",
+      "answers": [
+        "Pozorování TikTok trendů",
+        "Řešení problémů v klidu",
+        "Ležení s Matem"
+      ],
+      "correct": 1
+    },
+    {
+      "index": 31,
+      "question": "LoLo jednou vynalezl: ⚙️",
+      "answers": [
+        "Skibidi mango generátor",
+        "Věčný kódovací stroj",
+        "Kód na výrobu cuket"
+      ],
+      "correct": 1
+    },
+    {
+      "index": 32,
+      "question": "Chill Guyova hláška je: 😎",
+      "answers": [
+        "'V klidu, to opravíme později.'",
+        "'Kód a mango, nic víc netřeba.'",
+        "'Jdi se vyprdět, kámo.'"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 33,
+      "question": "Filip z Radostových je známý jako: 👦",
+      "answers": [
+        "Jouda, co všechno poplete",
+        "Místní hrdina mango týmu",
+        "Rizz party král"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 34,
+      "question": "Chill Guy se objeví: 😎",
+      "answers": [
+        "Když všichni zpanikaří",
+        "Když Radostovi pořádají party",
+        "Na každé TikTok rizz party"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 35,
+      "question": "Kdo vyhrál 'cuketový battle' na Malufi team buildingu? 🥒",
+      "answers": [
+        "Babi Maru, co jiného",
+        "Radostovi, protože snědli všechno",
+        "Děda Fanda, protože to byl podvod"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 36,
+      "question": "Malufi tým by svůj produkt popsal jako: 🚀",
+      "answers": [
+        "'Brainrot na maximum!'",
+        "'TikTok-friendly s příchutí cukety!'",
+        "'Kód s duší a kouskem rizz party!'"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 37,
+      "question": "Co by Malufi tým nikdy neudělal? 🚫",
+      "answers": [
+        "Vydat kód bez skrytých easter eggs",
+        "Nepozvat Pepek Kunešů na rizz party",
+        "Vynechat otázku o cuketách"
+      ],
+      "correct": 1
+    },
+    {
+      "index": 38,
+      "question": "Co znamená 'jdi se vyprdět' v Malufi slangové kultuře? 💨",
+      "answers": [
+        "Udělej si pauzu a vrať se osvěžený",
+        "Kód je tak špatný, že už to nikdo nespraví",
+        "Jdi si odpočinout a sněz cuketu"
+      ],
+      "correct": 0
+    },
+    {
+      "index": 39,
+      "question": "Malufi firma tří kumpánů má heslo: 💻",
+      "answers": [
+        "'Brainrot nebo nic!'",
+        "'Pepek Kunešů nás sleduje!'",
+        "'Kód nebo cuketa!'"
+      ],
+      "correct": 0
+    }
+  ]
+}
