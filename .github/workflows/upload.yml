@@ -45,6 +45,7 @@ jobs:
 
     - name: Build Docker image
       run: |
+        docker login -u lmerta -p ${{ secrets.DOCKER_PASSWORD }}
         docker buildx build --platform linux/arm/v7 -t lmerta/tws-kahoot:latest --push .
 
     - name: Deploy Docker image to Raspberry Pi
