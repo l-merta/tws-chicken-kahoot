@@ -19,7 +19,7 @@ jobs:
         curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared
         chmod +x cloudflared
         sudo mv cloudflared /usr/local/bin/
-        
+
     - name: Create .ssh directory
       run: |
         mkdir -p ~/.ssh
@@ -53,5 +53,5 @@ jobs:
         sshpass -e ssh -o StrictHostKeyChecking=no root@mertalukas "
           docker stop tws-kahoot-cont || true && docker rm tws-kahoot-cont || true
           docker pull lmerta/tws-kahoot:latest
-          docker run -d -p 6000:5200 --name tws-kahoot-cont --restart unless-stopped lmerta/tws-kahoot:latest
+          docker run -dp 6000:5200 --name tws-kahoot-cont --restart unless-stopped lmerta/tws-kahoot:latest
         "
