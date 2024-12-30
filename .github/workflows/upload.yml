@@ -19,17 +19,7 @@ jobs:
         curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared
         chmod +x cloudflared
         sudo mv cloudflared /usr/local/bin/
-
-    - name: Install dependencies for client
-      run: |
-        cd client
-        npm install
-
-    - name: Install dependencies for server
-      run: |
-        cd server
-        npm install
-
+        
     - name: Create .ssh directory
       run: |
         mkdir -p ~/.ssh
@@ -49,15 +39,19 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t tws-kahoot .
-
-    - name: Save Docker image to file
+        docker build -t lmerta/tws-kahoot:latest .
+  
+    - name: Push Docker image to Docker Hub
       run: |
-        docker save tws-kahoot -o tws-kahoot.tar
+        docker login -u lmerta -p ${{ secrets.DOCKER_PASSWORD }}
+        docker push lmerta/tws-kahoot:latest
 
     - name: Deploy Docker image to Raspberry Pi
       env:
         SSHPASS: ${{ secrets.SSH_PASSWORD }}
       run: |
-        sshpass -e scp -o StrictHostKeyChecking=no tws-kahoot.tar root@mertalukas:/root/docker-images/tws-kahoot.tar
-        sshpass -e ssh -o StrictHostKeyChecking=no root@mertalukas "docker load -i /root/docker-images/tws-kahoot.tar && docker run -dp 6000:5200 --name tws-kahoot-cont --restart unless-stopped tws-kahoot"
+        sshpass -e ssh -o StrictHostKeyChecking=no root@mertalukas "
+          docker stop tws-kahoot-cont || true && docker rm tws-kahoot-cont || true
+          docker pull lmerta/tws-kahoot:latest
+          docker run -d -p 6000:5200 --name tws-kahoot-cont --restart unless-stopped lmerta/tws-kahoot:latest
+        "
