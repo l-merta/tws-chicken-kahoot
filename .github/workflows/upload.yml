@@ -59,5 +59,5 @@ jobs:
       env:
         SSHPASS: ${{ secrets.SSH_PASSWORD }}
       run: |
-        sshpass -e scp -o StrictHostKeyChecking=no tws-kahoot.tar pi@your-raspberry-pi-ip:/root/docker-images/tws-kahoot.tar
-        sshpass -e ssh -o StrictHostKeyChecking=no pi@your-raspberry-pi-ip "docker load -i /root/docker-images/tws-kahoot.tar && docker run -d -p 6000:5200 --name tws-kahoot tws-kahoot"
+        sshpass -e scp -o StrictHostKeyChecking=no tws-kahoot.tar root@mertalukas:/root/docker-images/tws-kahoot.tar
+        sshpass -e ssh -o StrictHostKeyChecking=no root@mertalukas "docker load -i /root/docker-images/tws-kahoot.tar && docker run -dp 6000:5200 --name tws-kahoot-cont --restart unless-stopped tws-kahoot"
