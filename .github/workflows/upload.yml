@@ -37,14 +37,15 @@ jobs:
           ProxyCommand cloudflared access ssh --hostname %h --service-token-id ${{ secrets.CLOUDFLARE_SERVICE_TOKEN_ID }} --service-token-secret ${{ secrets.CLOUDFLARE_SERVICE_TOKEN_SECRET }}
         " >> ~/.ssh/config
 
+    - name: Set up Docker Buildx
+      run: |
+        docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+        docker buildx create --use
+        docker buildx inspect --bootstrap
+
     - name: Build Docker image
       run: |
-        docker build -t lmerta/tws-kahoot:latest .
-  
-    - name: Push Docker image to Docker Hub
-      run: |
-        docker login -u lmerta -p ${{ secrets.DOCKER_PASSWORD }}
-        docker push lmerta/tws-kahoot:latest
+        docker buildx build --platform linux/arm/v7 -t lmerta/tws-kahoot:latest --push .
 
     - name: Deploy Docker image to Raspberry Pi
       env:
