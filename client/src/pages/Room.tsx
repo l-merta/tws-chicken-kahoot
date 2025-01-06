@@ -207,7 +207,7 @@ const Room: React.FC = () => {
               <span className="code">{roomId}</span>
             </div>
             <div className="s2">
-              <QRCodeSVG className="qr-code" onClick={()=>{setQrCodeLarge(prev => !prev)}} value={apiUrl + "room/" + {roomId} />
+              <QRCodeSVG className="qr-code" onClick={()=>{setQrCodeLarge(prev => !prev)}} value={apiUrl + "room/" + roomId} />
             </div>
           </span>
         </h2>
