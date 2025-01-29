@@ -54,6 +54,7 @@ jobs:
       run: |
         sshpass -e ssh -o StrictHostKeyChecking=no root@mertalukas "
           docker stop tws-kahoot-cont || true && docker rm tws-kahoot-cont || true
+          docker rmi lmerta/tws-kahoot:latest || true
           docker pull lmerta/tws-kahoot:latest
           docker run -dp 6000:5200 --name tws-kahoot-cont --restart unless-stopped lmerta/tws-kahoot:latest
         "
