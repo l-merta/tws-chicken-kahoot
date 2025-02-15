@@ -1,1 +1,1 @@
-# Slepičí Kahoot
+# Slepičí Kahoot projekt na TWS
